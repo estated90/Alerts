@@ -11,13 +11,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class JsonReader implements JsonReaderInterface {
+public class JsonReader implements IJsonReader {
 
-	public void readerPersonList() {
+	public void readerPersonList(String filePath) {
 		// parsing file "JSONExample.json"
 		Object jsonFile = null;
 		try {
-			jsonFile = new JSONParser().parse(new FileReader("data.json"));
+			jsonFile = new JSONParser().parse(new FileReader(filePath));
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
