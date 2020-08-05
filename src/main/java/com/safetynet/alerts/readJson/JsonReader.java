@@ -11,11 +11,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class JsonReader {
+public class JsonReader implements JsonReaderInterface {
 
-	public void readerPersonList() throws FileNotFoundException, IOException, ParseException {
+	public void readerPersonList() {
 		// parsing file "JSONExample.json"
-		Object jsonFile = new JSONParser().parse(new FileReader("data.json"));
+		Object jsonFile = null;
+		try {
+			jsonFile = new JSONParser().parse(new FileReader("data.json"));
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// type casting jsonFile to JSONObject
 		JSONObject jsonObject = (JSONObject) jsonFile;
