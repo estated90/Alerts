@@ -8,20 +8,22 @@ public class RunServices implements IRunServices{
 	private String 					filePath;
 	
 	//Instances declaration
-	private IJsonReader 			parseJsonFile;
+	IJsonReader parseJsonFile = 	null;
+
+	public RunServices (String filePath, IJsonReader parseFile) {
+		this.filePath = filePath;
+		this.parseJsonFile = parseFile;
+	}
 
 	public RunServices() {
 		this.filePath = null;
 		this.parseJsonFile = null;
 	}
 	
-	public RunServices (String filePath, IJsonReader parseFile) {
-		this.filePath = filePath;
-		this.parseJsonFile = parseFile;
-	}
-	
 	public void jsonParserMicroservices() {
 		parseJsonFile.readerPersonList(filePath);
+		parseJsonFile.readerFirestationList(filePath);
+		parseJsonFile.readerSymptomsList(filePath);
 	}
 
 
