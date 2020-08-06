@@ -12,6 +12,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.safetynet.alerts.model.Persons;
+
 public class JsonReader implements IJsonReader {
 
 	private static final Logger logger = LogManager.getLogger("JsonReader");
