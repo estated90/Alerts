@@ -11,11 +11,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.safetynet.alerts.data.Data;
 
 public class JsonReader implements IJsonReader {
 
 	private static final Logger logger = LogManager.getLogger("JsonReader");
-
+	
+	@Autowired
+	private Data datas;
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void readerList(String filePath, String objectToParse) {
 		// parsing file "JSONExample.json"
@@ -30,6 +36,9 @@ public class JsonReader implements IJsonReader {
 		// type casting jsonFile to JSONObject
 		JSONObject jsonObject = (JSONObject) jsonFile;
 		JSONArray jsonArray = (JSONArray) jsonObject.get(objectToParse);
+		
+		datas.getPerson().add(null);
+		
 		Iterator<Map.Entry> itr2 = jsonArray.iterator();
 		while (itr2.hasNext()) {
 			Iterator<Map.Entry> itr1 = ((Map) itr2.next()).entrySet().iterator();
