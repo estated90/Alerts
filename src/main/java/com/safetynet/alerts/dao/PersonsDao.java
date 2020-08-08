@@ -5,21 +5,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.Persons;
 
 @Repository
 public class PersonsDao implements IPersonsDao{
 	
-	public static List<Person> person = new ArrayList<>();
+	public static List<Persons> person = new ArrayList<>();
 	
 	@Override
-	public List<Person> findAll() {
+	public List<Persons> findAll() {
 		return person;	
 	}
 	
     @Override
-    public Person findById(String name, String lastName) {
-        for (Person person : person) {
+    public Persons findById(String name, String lastName) {
+        for (Persons person : person) {
             if((person.getFirstName() == name) && (person.getLastName() == lastName)){
                 return person;
             }
@@ -28,7 +28,7 @@ public class PersonsDao implements IPersonsDao{
     }
     
     @Override
-    public Person save(Person persons) {
+    public Persons save(Persons persons) {
     	person.add(persons);
         return persons;
     }

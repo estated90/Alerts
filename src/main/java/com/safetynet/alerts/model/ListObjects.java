@@ -1,6 +1,7 @@
 
 package com.safetynet.alerts.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -15,20 +16,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "firestations",
     "medicalrecords"
 })
-public class Objects {
+public class ListObjects {
 
     @JsonProperty("persons")
-    private List<Person> persons = null;
+    private List<Persons> persons = new ArrayList<>();
     @JsonProperty("firestations")
-    private List<Firestation> firestations = null;
+    private List<Firestation> firestations = new ArrayList<>();
     @JsonProperty("medicalrecords")
-    private List<Medicalrecord> medicalrecords = null;
+    private List<Medicalrecord> medicalrecords = new ArrayList<>();
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public Objects() {
+    public ListObjects() {
     }
 
     /**
@@ -37,7 +38,7 @@ public class Objects {
      * @param firestations
      * @param medicalrecords
      */
-    public Objects(List<Person> persons, List<Firestation> firestations, List<Medicalrecord> medicalrecords) {
+    public ListObjects(List<Persons> persons, List<Firestation> firestations, List<Medicalrecord> medicalrecords) {
         super();
         this.persons = persons;
         this.firestations = firestations;
@@ -45,16 +46,16 @@ public class Objects {
     }
 
     @JsonProperty("persons")
-    public List<Person> getPersons() {
+    public List<Persons> getPersons() {
         return persons;
     }
 
     @JsonProperty("persons")
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<Persons> persons) {
         this.persons = persons;
     }
 
-    public Objects withPersons(List<Person> persons) {
+    public ListObjects withPersons(List<Persons> persons) {
         this.persons = persons;
         return this;
     }
@@ -69,7 +70,7 @@ public class Objects {
         this.firestations = firestations;
     }
 
-    public Objects withFirestations(List<Firestation> firestations) {
+    public ListObjects withFirestations(List<Firestation> firestations) {
         this.firestations = firestations;
         return this;
     }
@@ -84,7 +85,7 @@ public class Objects {
         this.medicalrecords = medicalrecords;
     }
 
-    public Objects withMedicalrecords(List<Medicalrecord> medicalrecords) {
+    public ListObjects withMedicalrecords(List<Medicalrecord> medicalrecords) {
         this.medicalrecords = medicalrecords;
         return this;
     }

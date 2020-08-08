@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "phone",
     "email"
 })
-public class Person {
+public class Persons {
 
     @JsonProperty("firstName")
     private String firstName;
@@ -38,7 +38,7 @@ public class Person {
      * No args constructor for use in serialization
      * 
      */
-    public Person() {
+    public Persons() {
     }
 
     /**
@@ -51,7 +51,7 @@ public class Person {
      * @param phone
      * @param email
      */
-    public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
+    public Persons(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,7 +72,7 @@ public class Person {
         this.firstName = firstName;
     }
 
-    public Person withFirstName(String firstName) {
+    public Persons withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -87,7 +87,7 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Person withLastName(String lastName) {
+    public Persons withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -102,7 +102,7 @@ public class Person {
         this.address = address;
     }
 
-    public Person withAddress(String address) {
+    public Persons withAddress(String address) {
         this.address = address;
         return this;
     }
@@ -117,7 +117,7 @@ public class Person {
         this.city = city;
     }
 
-    public Person withCity(String city) {
+    public Persons withCity(String city) {
         this.city = city;
         return this;
     }
@@ -132,7 +132,7 @@ public class Person {
         this.zip = zip;
     }
 
-    public Person withZip(String zip) {
+    public Persons withZip(String zip) {
         this.zip = zip;
         return this;
     }
@@ -147,7 +147,7 @@ public class Person {
         this.phone = phone;
     }
 
-    public Person withPhone(String phone) {
+    public Persons withPhone(String phone) {
         this.phone = phone;
         return this;
     }
@@ -162,7 +162,7 @@ public class Person {
         this.email = email;
     }
 
-    public Person withEmail(String email) {
+    public Persons withEmail(String email) {
         this.email = email;
         return this;
     }

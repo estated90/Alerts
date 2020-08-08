@@ -1,6 +1,9 @@
 
 package com.safetynet.alerts.model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -24,11 +27,11 @@ public class Medicalrecord {
     @JsonProperty("lastName")
     private String lastName;
     @JsonProperty("birthdate")
-    private String birthdate;
+    private Date birthdate;
     @JsonProperty("medications")
-    private List<String> medications = null;
+    private List<String> medications = new ArrayList<>();;
     @JsonProperty("allergies")
-    private List<String> allergies = null;
+    private List<String> allergies = new ArrayList<>();
 
     /**
      * No args constructor for use in serialization
@@ -45,7 +48,7 @@ public class Medicalrecord {
      * @param birthdate
      * @param medications
      */
-    public Medicalrecord(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies) {
+    public Medicalrecord(String firstName, String lastName, Date birthdate, List<String> medications, List<String> allergies) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -85,16 +88,16 @@ public class Medicalrecord {
     }
 
     @JsonProperty("birthdate")
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
     @JsonProperty("birthdate")
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthdate(Date date) {
+        this.birthdate = date;
     }
 
-    public Medicalrecord withBirthdate(String birthdate) {
+    public Medicalrecord withBirthdate(Date birthdate) {
         this.birthdate = birthdate;
         return this;
     }

@@ -22,8 +22,6 @@ public class RunServices implements IRunServices{
 	
 	public void jsonParserMicroservices() {
 		parseJsonFile.readerList(filePath, "persons");
-		parseJsonFile.readerList(filePath, "firestations");
-		parseJsonFile.readerList(filePath, "medicalrecords");
 	}
 
 

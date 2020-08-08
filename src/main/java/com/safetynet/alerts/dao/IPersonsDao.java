@@ -2,14 +2,14 @@ package com.safetynet.alerts.dao;
 
 import java.util.List;
 
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.Persons;
 
 public interface IPersonsDao {
 
-	List<Person> findAll();
+	List<Persons> findAll();
 
-	Person findById(String name, String lastName);
+	Persons findById(String name, String lastName);
 
-	Person save(Person persons);
+	Persons save(Persons persons);
 
 }
