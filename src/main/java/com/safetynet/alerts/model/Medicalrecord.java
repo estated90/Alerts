@@ -1,7 +1,6 @@
 
 package com.safetynet.alerts.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

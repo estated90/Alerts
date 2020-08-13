@@ -1,4 +1,4 @@
-package com.safetynet.alerts.services;
+package com.safetynet.alerts.interfaces;
 
 public interface IRunServices {
 

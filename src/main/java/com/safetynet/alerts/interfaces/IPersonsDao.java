@@ -1,4 +1,4 @@
-package com.safetynet.alerts.dao;
+package com.safetynet.alerts.interfaces;
 
 import java.util.List;
 

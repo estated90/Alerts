@@ -1,6 +1,7 @@
 package com.safetynet.alerts.services;
 
-import com.safetynet.alerts.readJson.IJsonReader;
+import com.safetynet.alerts.interfaces.IJsonReader;
+import com.safetynet.alerts.interfaces.IRunServices;
 
 public class RunServices implements IRunServices{
 	
@@ -21,7 +22,7 @@ public class RunServices implements IRunServices{
 	}
 	
 	public void jsonParserMicroservices() {
-		parseJsonFile.readerList(filePath, "persons");
+		
 	}
 
 
