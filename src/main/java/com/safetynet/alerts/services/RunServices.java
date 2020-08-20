@@ -5,19 +5,14 @@ import com.safetynet.alerts.interfaces.IRunServices;
 
 public class RunServices implements IRunServices{
 	
-	// Stock the path of the file
-	private String 					filePath;
-	
 	//Instances declaration
 	IJsonReader parseJsonFile = 	null;
 
 	public RunServices (String filePath, IJsonReader parseFile) {
-		this.filePath = filePath;
 		this.parseJsonFile = parseFile;
 	}
 
 	public RunServices() {
-		this.filePath = null;
 		this.parseJsonFile = null;
 	}
 	
