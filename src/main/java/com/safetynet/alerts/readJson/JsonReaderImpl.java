@@ -68,7 +68,7 @@ public class JsonReaderImpl {
 		for (JsonNode node : firestations) {
 			Firestation firestation = new Firestation();
 			firestation.setAddress(node.get("address").asText());
-			firestation.setAddress(node.get("station").asText());
+			firestation.setStation(node.get("station").asText());
 			listObjects.getFirestations().add(firestation);
 		}
 	}
