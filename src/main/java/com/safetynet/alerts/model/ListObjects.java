@@ -3,7 +3,9 @@ package com.safetynet.alerts.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "firestations",
     "medicalrecords"
 })
+@Component
 public class ListObjects {
 
     @JsonProperty("persons")
@@ -55,11 +58,6 @@ public class ListObjects {
         this.persons = persons;
     }
 
-    public ListObjects withPersons(List<Persons> persons) {
-        this.persons = persons;
-        return this;
-    }
-
     @JsonProperty("firestations")
     public List<Firestation> getFirestations() {
         return firestations;
@@ -70,11 +68,6 @@ public class ListObjects {
         this.firestations = firestations;
     }
 
-    public ListObjects withFirestations(List<Firestation> firestations) {
-        this.firestations = firestations;
-        return this;
-    }
-
     @JsonProperty("medicalrecords")
     public List<Medicalrecord> getMedicalrecords() {
         return medicalrecords;
@@ -83,11 +76,6 @@ public class ListObjects {
     @JsonProperty("medicalrecords")
     public void setMedicalrecords(List<Medicalrecord> medicalrecords) {
         this.medicalrecords = medicalrecords;
-    }
-
-    public ListObjects withMedicalrecords(List<Medicalrecord> medicalrecords) {
-        this.medicalrecords = medicalrecords;
-        return this;
     }
 
     @Override
