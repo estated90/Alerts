@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
@@ -29,7 +30,7 @@ public class JsonReaderImpl {
 	@Autowired
 	private ListObjects listObjects;
 	public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-	
+
 	@PostConstruct
 	public void readerList() {
 		JsonNode mainJson = null;
@@ -45,6 +46,9 @@ public class JsonReaderImpl {
 		readPersonsJson(mainJson);
 		readFirestationJson(mainJson);
 		readMedicalrecordsJson(mainJson);
+		associateFirestation();
+		associateMedicalRecords();
+		System.out.println(listObjects.getPersons());
 		System.out.println("Database has been configure");
 	}
 
@@ -72,7 +76,7 @@ public class JsonReaderImpl {
 			listObjects.getFirestations().add(firestation);
 		}
 	}
-	
+
 	private void readMedicalrecordsJson(JsonNode mainJson) {
 		JsonNode medicalrecords = mainJson.at("/medicalrecords");
 		for (JsonNode node : medicalrecords) {
@@ -94,6 +98,33 @@ public class JsonReaderImpl {
 				medicalrecord.getAllergies().add(nodea.textValue());
 			}
 			listObjects.getMedicalrecords().add(medicalrecord);
+		}
+	}
+
+	private void associateFirestation() {
+		List<Persons> persons = listObjects.getPersons();
+		List<Firestation> firestations = listObjects.getFirestations();
+		
+		for (Persons person : persons) {
+			for (Firestation firestation : firestations){
+				if (person.getAddress() == firestation.getAddress()) {
+					person.setStation(firestation.getStation());
+				}
+			}
+		}
+	}
+
+	private void associateMedicalRecords() {
+		List<Persons> persons = listObjects.getPersons();
+		List<Medicalrecord> medicalrecords = listObjects.getMedicalrecords();
+
+		for (Persons person : persons) {
+			for (Medicalrecord medicalrecord : medicalrecords) {
+				if ((person.getFirstName() == medicalrecord.getFirstName()) && (person.getLastName() == medicalrecord.getLastName())) {
+					person.setMedications(medicalrecord.getMedications());
+					person.setAllergies(medicalrecord.getAllergies());
+				}
+			}
 		}
 	}
 }
