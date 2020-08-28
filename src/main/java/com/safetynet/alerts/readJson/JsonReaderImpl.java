@@ -48,7 +48,6 @@ public class JsonReaderImpl {
 		readMedicalrecordsJson(mainJson);
 		associateFirestation();
 		associateMedicalRecords();
-		System.out.println(listObjects.getPersons());
 		System.out.println("Database has been configure");
 	}
 
@@ -104,11 +103,14 @@ public class JsonReaderImpl {
 	private void associateFirestation() {
 		List<Persons> persons = listObjects.getPersons();
 		List<Firestation> firestations = listObjects.getFirestations();
-		
+		int ind = 0;
 		for (Persons person : persons) {
 			for (Firestation firestation : firestations){
-				if (person.getAddress() == firestation.getAddress()) {
+				if (person.getAddress().equals(firestation.getAddress())) {
+					ind = persons.indexOf(person);
 					person.setStation(firestation.getStation());
+					persons.set(ind, person);
+					break;
 				}
 			}
 		}
@@ -117,12 +119,15 @@ public class JsonReaderImpl {
 	private void associateMedicalRecords() {
 		List<Persons> persons = listObjects.getPersons();
 		List<Medicalrecord> medicalrecords = listObjects.getMedicalrecords();
-
+		int ind = 0;
 		for (Persons person : persons) {
 			for (Medicalrecord medicalrecord : medicalrecords) {
-				if ((person.getFirstName() == medicalrecord.getFirstName()) && (person.getLastName() == medicalrecord.getLastName())) {
+				if ((person.getFirstName().equals(medicalrecord.getFirstName())) && (person.getLastName().equals(medicalrecord.getLastName()))) {
 					person.setMedications(medicalrecord.getMedications());
 					person.setAllergies(medicalrecord.getAllergies());
+					person.setBirthdate(medicalrecord.getBirthdate());
+					persons.set(ind, person);
+					break;
 				}
 			}
 		}

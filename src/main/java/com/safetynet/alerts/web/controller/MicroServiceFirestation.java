@@ -11,7 +11,7 @@ import com.safetynet.alerts.model.Firestation;
 
 
 @RestController
-public class MicroServiceFirestqtion {
+public class MicroServiceFirestation {
 	@Autowired
 	private IFirestastionDao firestationDao;
 

@@ -1,17 +1,19 @@
 
 package com.safetynet.alerts.model;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "firstName", "lastName", "address", "city", "zip", "phone", "email" })
+@JsonPropertyOrder({ "firstName", "lastName", "address", "city", "zip", "phone", "email", "station", "medication", "allergies" })
+@JsonFilter("monFiltreDynamique")
 public class Persons {
 
 	@JsonProperty("firstName")
@@ -28,10 +30,14 @@ public class Persons {
 	private String phone;
 	@JsonProperty("email")
 	private String email;
-
+	@JsonProperty("station")
 	private String station;
+	@JsonProperty("medications")
 	private List<String> medications;
+	@JsonProperty("allergies")
 	private List<String> allergies;
+    @JsonProperty("birthdate")
+    private Date birthdate;
 
 	/**
 	 * No args constructor for use in serialization
@@ -49,9 +55,12 @@ public class Persons {
 	 * @param city
 	 * @param phone
 	 * @param email
+	 * @param station
+	 * @param medications
+	 * @param allergies
 	 */
 	public Persons(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email, String station, List<String> medications, List<String> allergies) {
+			String email, String station, List<String> medications, List<String> allergies, Date birthdate) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -63,6 +72,7 @@ public class Persons {
 		this.station = station;
 		this.medications = medications;
 		this.allergies = allergies;
+		this.birthdate = birthdate;
 	}
 
 	@JsonProperty("firstName")
@@ -134,29 +144,37 @@ public class Persons {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	@JsonProperty("station")
 	public String getStation() {
 		return station;
 	}
-
+	@JsonProperty("station")
 	public void setStation(String station) {
 		this.station = station;
 	}
-
+	@JsonProperty("medications")
 	public List<String> getMedications() {
 		return medications;
 	}
-
+	@JsonProperty("medications")
 	public void setMedications(List<String> medications) {
 		this.medications = medications;
 	}
-
+	@JsonProperty("allergies")
 	public List<String> getAllergies() {
 		return allergies;
 	}
-
+	@JsonProperty("allergies")
 	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
+	}
+	@JsonProperty("birthdate")
+	public Date getBirthdate() {
+		return birthdate;
+	}
+	@JsonProperty("birthdate")
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
 
 	@Override
