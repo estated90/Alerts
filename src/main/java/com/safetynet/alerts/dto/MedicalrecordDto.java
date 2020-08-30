@@ -1,5 +1,5 @@
 
-package com.safetynet.alerts.model;
+package com.safetynet.alerts.dto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,11 +10,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.safetynet.alerts.dto.PersonDto;
+import com.googlecode.jmapper.annotations.JGlobalMap;
+import com.safetynet.alerts.model.Person;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "firstName", "lastName", "birthdate", "medications", "allergies", "person" })
-public class Medicalrecord {
+@JsonPropertyOrder({ "firstName", "lastName", "birthdate", "medications", "allergies" })
+@JGlobalMap
+public class MedicalrecordDto {
 
 	@JsonProperty("firstName")
 	private String firstName;
@@ -26,14 +28,12 @@ public class Medicalrecord {
 	private List<String> medications = new ArrayList<>();;
 	@JsonProperty("allergies")
 	private List<String> allergies = new ArrayList<>();
-	@JsonProperty("person")
-	private PersonDto person;
 
 	/**
 	 * No args constructor for use in serialization
 	 * 
 	 */
-	public Medicalrecord() {
+	public MedicalrecordDto() {
 	}
 
 	/**
@@ -44,15 +44,14 @@ public class Medicalrecord {
 	 * @param birthdate
 	 * @param medications
 	 */
-	public Medicalrecord(String firstName, String lastName, Date birthdate, List<String> medications,
-			List<String> allergies, PersonDto person) {
+	public MedicalrecordDto(String firstName, String lastName, Date birthdate, List<String> medications,
+			List<String> allergies, Person person) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthdate = birthdate;
 		this.medications = medications;
 		this.allergies = allergies;
-		this.person = person;
 	}
 
 	@JsonProperty("firstName")
@@ -105,26 +104,10 @@ public class Medicalrecord {
 		this.allergies = allergies;
 	}
 
-	/**
-	 * @return the person
-	 */
-	@JsonProperty("person")
-	public PersonDto getPerson() {
-		return person;
-	}
-
-	/**
-	 * @param person the person to set
-	 */
-	@JsonProperty("person")
-	public void setPerson(PersonDto person) {
-		this.person = person;
-	}
-
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this).append("firstName", firstName).append("lastName", lastName)
-				.append("birthdate", birthdate).append("medications", medications).append("allergies", allergies).append("person", person)
+				.append("birthdate", birthdate).append("medications", medications).append("allergies", allergies)
 				.toString();
 	}
 

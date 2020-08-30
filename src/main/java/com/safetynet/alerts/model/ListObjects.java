@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -24,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ListObjects {
 
     @JsonProperty("persons")
-    private List<Persons> persons = new ArrayList<>();
+    private List<Person> persons = new ArrayList<>();
     @JsonProperty("firestations")
     private List<Firestation> firestations = new ArrayList<>();
     @JsonProperty("medicalrecords")
@@ -43,7 +42,7 @@ public class ListObjects {
      * @param firestations
      * @param medicalrecords
      */
-    public ListObjects(List<Persons> persons, List<Firestation> firestations, List<Medicalrecord> medicalrecords) {
+    public ListObjects(List<Person> persons, List<Firestation> firestations, List<Medicalrecord> medicalrecords) {
         super();
         this.persons = persons;
         this.firestations = firestations;
@@ -51,12 +50,12 @@ public class ListObjects {
     }
 
     @JsonProperty("persons")
-    public List<Persons> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
     @JsonProperty("persons")
-    public void setPersons(List<Persons> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 

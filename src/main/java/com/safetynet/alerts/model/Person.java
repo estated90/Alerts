@@ -1,20 +1,17 @@
 
 package com.safetynet.alerts.model;
 
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.safetynet.alerts.dto.FirestationDto;
+import com.safetynet.alerts.dto.MedicalrecordDto;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "firstName", "lastName", "address", "city", "zip", "phone", "email", "station", "medication", "allergies" })
-@JsonFilter("monFiltreDynamique")
-public class Persons {
+@JsonPropertyOrder({ "firstName", "lastName", "address", "city", "zip", "phone", "email", "firestation", "medicalrecords"})
+public class Person {
 
 	@JsonProperty("firstName")
 	private String firstName;
@@ -30,20 +27,16 @@ public class Persons {
 	private String phone;
 	@JsonProperty("email")
 	private String email;
-	@JsonProperty("station")
-	private String station;
-	@JsonProperty("medications")
-	private List<String> medications;
-	@JsonProperty("allergies")
-	private List<String> allergies;
-    @JsonProperty("birthdate")
-    private Date birthdate;
+	@JsonProperty("firestation")
+	private FirestationDto firestation;
+	@JsonProperty("medicalrecords")
+	private MedicalrecordDto medicalrecords;
 
 	/**
 	 * No args constructor for use in serialization
 	 * 
 	 */
-	public Persons() {
+	public Person() {
 	}
 
 	/**
@@ -55,12 +48,11 @@ public class Persons {
 	 * @param city
 	 * @param phone
 	 * @param email
-	 * @param station
-	 * @param medications
-	 * @param allergies
+	 * @param firestation
+	 * @param medicalrecords
 	 */
-	public Persons(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email, String station, List<String> medications, List<String> allergies, Date birthdate) {
+	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
+			String email, FirestationDto firestation, MedicalrecordDto medicalrecords) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -69,10 +61,8 @@ public class Persons {
 		this.zip = zip;
 		this.phone = phone;
 		this.email = email;
-		this.station = station;
-		this.medications = medications;
-		this.allergies = allergies;
-		this.birthdate = birthdate;
+		this.firestation = firestation;
+		this.medicalrecords = medicalrecords;
 	}
 
 	@JsonProperty("firstName")
@@ -144,45 +134,33 @@ public class Persons {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@JsonProperty("station")
-	public String getStation() {
-		return station;
+
+	@JsonProperty("firestation")
+	public FirestationDto getFirestation() {
+		return firestation;
 	}
-	@JsonProperty("station")
-	public void setStation(String station) {
-		this.station = station;
+
+	@JsonProperty("firestation")
+	public void setFirestation(FirestationDto firestation) {
+		this.firestation = firestation;
 	}
-	@JsonProperty("medications")
-	public List<String> getMedications() {
-		return medications;
+
+	@JsonProperty("medicalrecords")
+	public MedicalrecordDto Medicalrecord() {
+		return medicalrecords;
 	}
-	@JsonProperty("medications")
-	public void setMedications(List<String> medications) {
-		this.medications = medications;
-	}
-	@JsonProperty("allergies")
-	public List<String> getAllergies() {
-		return allergies;
-	}
-	@JsonProperty("allergies")
-	public void setAllergies(List<String> allergies) {
-		this.allergies = allergies;
-	}
-	@JsonProperty("birthdate")
-	public Date getBirthdate() {
-		return birthdate;
-	}
-	@JsonProperty("birthdate")
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+
+	@JsonProperty("medicalrecords")
+	public void setMedicalrecord(MedicalrecordDto medicalrecords) {
+		this.medicalrecords = medicalrecords;
 	}
 
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this).append("firstName", firstName).append("lastName", lastName)
 				.append("address", address).append("city", city).append("zip", zip).append("phone", phone)
-				.append("email", email).append("station", station).append("Medication", medications)
-				.append("Allergies", allergies).toString();
+				.append("email", email).append("firestation", firestation).append("medicalrecords", medicalrecords)
+				.toString();
 	}
 
 }

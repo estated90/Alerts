@@ -17,10 +17,14 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.googlecode.jmapper.JMapper;
+import com.safetynet.alerts.dto.FirestationDto;
+import com.safetynet.alerts.dto.MedicalrecordDto;
+import com.safetynet.alerts.dto.PersonDto;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Medicalrecord;
-import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.model.Person;
 
 @Component
 public class JsonReaderImpl {
@@ -46,15 +50,15 @@ public class JsonReaderImpl {
 		readPersonsJson(mainJson);
 		readFirestationJson(mainJson);
 		readMedicalrecordsJson(mainJson);
-		associateFirestation();
-		associateMedicalRecords();
+		associateDataToPerson();
+
 		System.out.println("Database has been configure");
 	}
 
 	private void readPersonsJson(JsonNode mainJson) {
 		JsonNode persons = mainJson.at("/persons");
 		for (JsonNode node : persons) {
-			Persons person = new Persons();
+			Person person = new Person();
 			person.setFirstName(node.get("firstName").asText());
 			person.setLastName(node.get("lastName").asText());
 			person.setAddress(node.get("address").asText());
@@ -100,34 +104,34 @@ public class JsonReaderImpl {
 		}
 	}
 
-	private void associateFirestation() {
-		List<Persons> persons = listObjects.getPersons();
+	private void associateDataToPerson() {
+		List<Person> persons = listObjects.getPersons();
 		List<Firestation> firestations = listObjects.getFirestations();
-		int ind = 0;
-		for (Persons person : persons) {
-			for (Firestation firestation : firestations){
-				if (person.getAddress().equals(firestation.getAddress())) {
-					ind = persons.indexOf(person);
-					person.setStation(firestation.getStation());
-					persons.set(ind, person);
-					break;
-				}
-			}
-		}
-	}
-
-	private void associateMedicalRecords() {
-		List<Persons> persons = listObjects.getPersons();
 		List<Medicalrecord> medicalrecords = listObjects.getMedicalrecords();
-		int ind = 0;
-		for (Persons person : persons) {
-			for (Medicalrecord medicalrecord : medicalrecords) {
-				if ((person.getFirstName().equals(medicalrecord.getFirstName())) && (person.getLastName().equals(medicalrecord.getLastName()))) {
-					person.setMedications(medicalrecord.getMedications());
-					person.setAllergies(medicalrecord.getAllergies());
-					person.setBirthdate(medicalrecord.getBirthdate());
-					persons.set(ind, person);
-					break;
+		// TODO Error from here, check why it appears
+		JMapper<PersonDto, Person> UserMapperPerson = new JMapper<>(PersonDto.class, Person.class);
+		JMapper<MedicalrecordDto, Medicalrecord> userMapperMedicalrecord = new JMapper<>(MedicalrecordDto.class,
+				Medicalrecord.class);
+		JMapper<FirestationDto, Firestation> userMapperFirestation = new JMapper<>(FirestationDto.class, Firestation.class);
+		for (Firestation firestation : firestations) {
+			FirestationDto resultFirestation = userMapperFirestation.getDestination(firestation);
+			for (Person person : persons) {
+				PersonDto resultPerson = UserMapperPerson.getDestination(person);
+				if (person.getAddress().equals(firestation.getAddress())) {
+					person.setFirestation(resultFirestation);
+					persons.set(persons.indexOf(person), person);
+					firestation.getPerson().add(resultPerson);
+				}
+				for (Medicalrecord medicalrecord : medicalrecords) {
+					MedicalrecordDto resultMedicalrecord = userMapperMedicalrecord.getDestination(medicalrecord);
+					if ((person.getFirstName().equals(medicalrecord.getFirstName()))
+							&& (person.getLastName().equals(medicalrecord.getLastName()))) {
+						medicalrecord.setPerson(resultPerson);
+						medicalrecords.set(medicalrecords.indexOf(medicalrecord), medicalrecord);
+						person.setMedicalrecord(resultMedicalrecord);
+						persons.set(persons.indexOf(person), person);
+						break;
+					}
 				}
 			}
 		}

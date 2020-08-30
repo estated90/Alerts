@@ -17,6 +17,10 @@
 
 	<properties>
 		<java.version>14</java.version>
+		<sonar.projectKey>estated90_Alerts</sonar.projectKey>
+		<sonar.organization>estated90</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>5625c10cbdbde894c29333320410000b06b1a2a9</sonar.login>
 	</properties>
 
 	<dependencies>
@@ -49,9 +53,13 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			</dependency>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.jmapper-framework</groupId>
+			<artifactId>jmapper-core</artifactId>
+			<version>1.6.1.CR2</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>

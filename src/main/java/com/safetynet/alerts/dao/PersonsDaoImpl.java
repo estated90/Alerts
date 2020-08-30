@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.alerts.interfaces.IPersonsDao;
 import com.safetynet.alerts.model.ListObjects;
-import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.model.Person;
 
 @Service
 public class PersonsDaoImpl implements IPersonsDao {
@@ -16,8 +16,8 @@ public class PersonsDaoImpl implements IPersonsDao {
 	private ListObjects listObject;
 	
 	@Override
-	public List<Persons> returnAll() {
-		List<Persons> persons = listObject.getPersons();
+	public List<Person> returnAll() {
+		List<Person> persons = listObject.getPersons();
 		return persons;
 	}
 
