@@ -1,6 +1,7 @@
 
 package com.safetynet.alerts.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +22,9 @@ public class Medicalrecord {
 	@JsonProperty("lastName")
 	private String lastName;
 	@JsonProperty("birthdate")
-	private Date birthdate;
+	private LocalDate birthdate;
 	@JsonProperty("medications")
-	private List<String> medications = new ArrayList<>();;
+	private List<String> medications = new ArrayList<>();
 	@JsonProperty("allergies")
 	private List<String> allergies = new ArrayList<>();
 	@JsonProperty("person")
@@ -44,7 +45,7 @@ public class Medicalrecord {
 	 * @param birthdate
 	 * @param medications
 	 */
-	public Medicalrecord(String firstName, String lastName, Date birthdate, List<String> medications,
+	public Medicalrecord(String firstName, String lastName, LocalDate birthdate, List<String> medications,
 			List<String> allergies, PersonDto person) {
 		super();
 		this.firstName = firstName;
@@ -76,12 +77,12 @@ public class Medicalrecord {
 	}
 
 	@JsonProperty("birthdate")
-	public Date getBirthdate() {
+	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 
 	@JsonProperty("birthdate")
-	public void setBirthdate(Date date) {
+	public void setBirthdate(LocalDate date) {
 		this.birthdate = date;
 	}
 

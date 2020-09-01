@@ -146,7 +146,7 @@ public class Person {
 	}
 
 	@JsonProperty("medicalrecords")
-	public MedicalrecordDto Medicalrecord() {
+	public MedicalrecordDto getMedicalrecord() {
 		return medicalrecords;
 	}
 

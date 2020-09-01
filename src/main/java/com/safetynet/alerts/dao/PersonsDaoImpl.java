@@ -17,8 +17,7 @@ public class PersonsDaoImpl implements IPersonsDao {
 	
 	@Override
 	public List<Person> returnAll() {
-		List<Person> persons = listObject.getPersons();
-		return persons;
+		return listObject.getPersons();
 	}
 
 }

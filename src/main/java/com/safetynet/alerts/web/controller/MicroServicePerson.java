@@ -18,8 +18,7 @@ public class MicroServicePerson {
 	// Récupérer un produit par son Id
 	@GetMapping(value = "person")
 	public List<Person> showPersons() {
-		List<Person> persons = personsDao.returnAll();
-		return persons;
+		return personsDao.returnAll();
 
 	}
 

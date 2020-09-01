@@ -17,7 +17,6 @@ public class FirestationDaoImpl implements IFirestastionDao {
 
 	@Override
 	public List<Firestation> returnAll() {
-		List<Firestation> firestation = listObject.getFirestations();
-		return firestation;
+		return listObject.getFirestations();
 	}
 }

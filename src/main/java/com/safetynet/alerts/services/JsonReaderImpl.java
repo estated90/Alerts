@@ -1,9 +1,12 @@
-package com.safetynet.alerts.readJson;
+package com.safetynet.alerts.services;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,17 +45,17 @@ public class JsonReaderImpl {
 		File jsonFile = new File("data.json");
 		try {
 			mainJson = mapper.readTree(jsonFile);
+			readPersonsJson(mainJson);
+			readFirestationJson(mainJson);
+			readMedicalrecordsJson(mainJson);
+			associateDataToPerson();
 		} catch (JsonProcessingException e) {
 			logger.error("Cannot process the Json File", e);
 		} catch (IOException e) {
 			logger.error("Cannot read the Json File", e);
 		}
-		readPersonsJson(mainJson);
-		readFirestationJson(mainJson);
-		readMedicalrecordsJson(mainJson);
-		associateDataToPerson();
 
-		System.out.println("Database has been configure");
+		logger.info("Database has been configure");
 	}
 
 	private void readPersonsJson(JsonNode mainJson) {
@@ -68,6 +71,7 @@ public class JsonReaderImpl {
 			person.setEmail(node.get("email").asText());
 			listObjects.getPersons().add(person);
 		}
+		logger.info("Creation of the data person /r" + listObjects.getPersons());
 	}
 
 	private void readFirestationJson(JsonNode mainJson) {
@@ -78,6 +82,7 @@ public class JsonReaderImpl {
 			firestation.setStation(node.get("station").asText());
 			listObjects.getFirestations().add(firestation);
 		}
+		logger.info("Creation of the data firestation /r" + listObjects.getFirestations());
 	}
 
 	private void readMedicalrecordsJson(JsonNode mainJson) {
@@ -86,9 +91,10 @@ public class JsonReaderImpl {
 			Medicalrecord medicalrecord = new Medicalrecord();
 			medicalrecord.setFirstName(node.get("firstName").asText());
 			medicalrecord.setLastName(node.get("lastName").asText());
-			// TODO check the date format to change to localdate
 			try {
-				medicalrecord.setBirthdate(formatter.parse(node.get("birthdate").asText()));
+				Date date = formatter.parse(node.get("birthdate").asText());
+				LocalDate birthdate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				medicalrecord.setBirthdate(birthdate);
 			} catch (ParseException e) {
 				logger.error("Enable to read the date format", e);
 			}
@@ -102,6 +108,7 @@ public class JsonReaderImpl {
 			}
 			listObjects.getMedicalrecords().add(medicalrecord);
 		}
+		logger.info("Creation of the data medicalrecord /r" + listObjects.getMedicalrecords());
 	}
 
 	private void associateDataToPerson() {
@@ -109,14 +116,15 @@ public class JsonReaderImpl {
 		List<Firestation> firestations = listObjects.getFirestations();
 		List<Medicalrecord> medicalrecords = listObjects.getMedicalrecords();
 		// TODO Error from here, check why it appears
-		JMapper<PersonDto, Person> UserMapperPerson = new JMapper<>(PersonDto.class, Person.class);
+		JMapper<PersonDto, Person> userMapperPerson = new JMapper<>(PersonDto.class, Person.class);
 		JMapper<MedicalrecordDto, Medicalrecord> userMapperMedicalrecord = new JMapper<>(MedicalrecordDto.class,
 				Medicalrecord.class);
-		JMapper<FirestationDto, Firestation> userMapperFirestation = new JMapper<>(FirestationDto.class, Firestation.class);
+		JMapper<FirestationDto, Firestation> userMapperFirestation = new JMapper<>(FirestationDto.class,
+				Firestation.class);
 		for (Firestation firestation : firestations) {
 			FirestationDto resultFirestation = userMapperFirestation.getDestination(firestation);
 			for (Person person : persons) {
-				PersonDto resultPerson = UserMapperPerson.getDestination(person);
+				PersonDto resultPerson = userMapperPerson.getDestination(person);
 				if (person.getAddress().equals(firestation.getAddress())) {
 					person.setFirestation(resultFirestation);
 					persons.set(persons.indexOf(person), person);
@@ -135,5 +143,7 @@ public class JsonReaderImpl {
 				}
 			}
 		}
+		logger.info("Deep link created between:/r" + "Person:/r" + listObjects.getPersons() + "/rFirestation:/r"
+				+ listObjects.getFirestations() + "/rmedicalrecord:/r" + listObjects.getMedicalrecords());
 	}
 }

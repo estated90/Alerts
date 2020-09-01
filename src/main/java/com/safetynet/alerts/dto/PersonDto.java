@@ -3,31 +3,20 @@ package com.safetynet.alerts.dto;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.googlecode.jmapper.annotations.JGlobalMap;
-import com.safetynet.alerts.model.Firestation;
-import com.safetynet.alerts.model.Medicalrecord;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "firstName", "lastName", "address", "city", "zip", "phone", "email", "firestation", "medicalrecords"})
 @JGlobalMap
 public class PersonDto {
 
-
-	@JsonProperty("firstName")
 	private String firstName;
-	@JsonProperty("lastName")
 	private String lastName;
-	@JsonProperty("address")
 	private String address;
-	@JsonProperty("city")
 	private String city;
-	@JsonProperty("zip")
 	private String zip;
-	@JsonProperty("phone")
 	private String phone;
-	@JsonProperty("email")
 	private String email;
 
 	/**
@@ -50,7 +39,7 @@ public class PersonDto {
 	 * @param medicalrecords
 	 */
 	public PersonDto(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email, Firestation firestation, Medicalrecord medicalrecords) {
+			String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -61,72 +50,100 @@ public class PersonDto {
 		this.email = email;
 	}
 
-	@JsonProperty("firstName")
+	/**
+	 * @return the firstName
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
-	@JsonProperty("firstName")
+	/**
+	 * @param firstName the firstName to set
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	@JsonProperty("lastName")
+	/**
+	 * @return the lastName
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
-	@JsonProperty("lastName")
+	/**
+	 * @param lastName the lastName to set
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	@JsonProperty("address")
+	/**
+	 * @return the address
+	 */
 	public String getAddress() {
 		return address;
 	}
 
-	@JsonProperty("address")
+	/**
+	 * @param address the address to set
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	@JsonProperty("city")
+	/**
+	 * @return the city
+	 */
 	public String getCity() {
 		return city;
 	}
 
-	@JsonProperty("city")
+	/**
+	 * @param city the city to set
+	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
 
-	@JsonProperty("zip")
+	/**
+	 * @return the zip
+	 */
 	public String getZip() {
 		return zip;
 	}
 
-	@JsonProperty("zip")
+	/**
+	 * @param zip the zip to set
+	 */
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
 
-	@JsonProperty("phone")
+	/**
+	 * @return the phone
+	 */
 	public String getPhone() {
 		return phone;
 	}
 
-	@JsonProperty("phone")
+	/**
+	 * @param phone the phone to set
+	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	@JsonProperty("email")
+	/**
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
-	@JsonProperty("email")
+	/**
+	 * @param email the email to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}

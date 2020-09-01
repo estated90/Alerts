@@ -17,7 +17,6 @@ public class MedicalRecordDaoImpl implements IMedicalrecords {
 
 	@Override
 	public List<Medicalrecord> returnAll() {
-		List<Medicalrecord> medicalrecord = listObject.getMedicalrecords();
-		return medicalrecord;
+		return listObject.getMedicalrecords();
 	}
 }

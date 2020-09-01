@@ -17,10 +17,10 @@
 
 	<properties>
 		<java.version>14</java.version>
-		<sonar.projectKey>estated90_Alerts</sonar.projectKey>
+		<sonar.projectKey>estated90_SafetyAlerts</sonar.projectKey>
 		<sonar.organization>estated90</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.login>5625c10cbdbde894c29333320410000b06b1a2a9</sonar.login>
+		<sonar.login>d34148c39d04064974274442d6e971e050840bf4</sonar.login>
 	</properties>
 
 	<dependencies>
