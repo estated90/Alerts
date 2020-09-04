@@ -8,11 +8,6 @@ import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.googlecode.jmapper.annotations.JGlobalMap;
-import com.safetynet.alerts.dto.PersonDto;
 
 public class Medicalrecord {
 

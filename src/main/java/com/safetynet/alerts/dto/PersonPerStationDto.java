@@ -3,8 +3,6 @@ package com.safetynet.alerts.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.googlecode.jmapper.annotations.JGlobalMap;

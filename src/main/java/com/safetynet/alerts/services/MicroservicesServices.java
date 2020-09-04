@@ -2,11 +2,6 @@ package com.safetynet.alerts.services;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +15,6 @@ import com.safetynet.alerts.model.Person;
 @Service
 public class MicroservicesServices {
 
-	private static final Logger logger = LogManager.getLogger("JsonReader");
 	@Autowired
 	private ListObjects listObjects;
 	@Autowired

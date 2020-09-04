@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +19,7 @@ public class UrlsControllers {
 	@Autowired
 	private MicroservicesServices microservicesServices;
 
-	@GetMapping("/firestations")
+	@GetMapping(value = "firestation", params = "stationNumber")
 	public PersonPerStationDto returnFirestationFiltered(@RequestParam("stationNumber") int station) {
 		logger.info("GET/firestations?stationNumber={}", station);
 		PersonPerStationDto result = microservicesServices.firestationListPerson(station);
