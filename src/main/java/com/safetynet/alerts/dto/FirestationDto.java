@@ -13,7 +13,7 @@ import com.googlecode.jmapper.annotations.JGlobalMap;
 public class FirestationDto {
 
     private String address;
-    private String station;
+    private int station;
 
     /**
      * No args constructor for use in serialization
@@ -27,7 +27,7 @@ public class FirestationDto {
      * @param address
      * @param station
      */
-    public FirestationDto(String address, String station) {
+    public FirestationDto(String address, int station) {
         super();
         this.address = address;
         this.station = station;
@@ -50,14 +50,14 @@ public class FirestationDto {
 	/**
 	 * @return the station
 	 */
-	public String getStation() {
+	public int getStation() {
 		return station;
 	}
 
 	/**
 	 * @param station the station to set
 	 */
-	public void setStation(String station) {
+	public void setStation(int station) {
 		this.station = station;
 	}
 

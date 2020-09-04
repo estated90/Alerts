@@ -6,28 +6,20 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.safetynet.alerts.dto.PersonDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
  * @author nicolas
  *
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "address",
-    "station"
-})
+
 public class Firestation {
 
-    @JsonProperty("address")
     private String address;
-    @JsonProperty("station")
-    private String station;
-    private List<PersonDto> person = new ArrayList<>(); 
+    private int station;
+    @JsonIgnore
+    private List<Person> person = new ArrayList<>(); 
 
     /**
      * No args constructor for use in serialization
@@ -41,44 +33,40 @@ public class Firestation {
      * @param address
      * @param station
      */
-    public Firestation(String address, String station, List<PersonDto> person) {
+    public Firestation(String address, int station, List<Person> person) {
         super();
         this.address = address;
         this.station = station;
         this.person = person;
     }
 
-    @JsonProperty("address")
     public String getAddress() {
         return address;
     }
 
-    @JsonProperty("address")
     public void setAddress(String address) {
         this.address = address;
     }
 
-    @JsonProperty("station")
-    public String getStation() {
+    public int getStation() {
         return station;
     }
 
-    @JsonProperty("station")
-    public void setStation(String station) {
+    public void setStation(int station) {
         this.station = station;
     }
 
     /**
 	 * @return the person
 	 */
-	public List<PersonDto> getPerson() {
+	public List<Person> getPerson() {
 		return person;
 	}
 
 	/**
 	 * @param person the person to set
 	 */
-	public void setPerson(List<PersonDto> person) {
+	public void setPerson(List<Person> person) {
 		this.person = person;
 	}
 

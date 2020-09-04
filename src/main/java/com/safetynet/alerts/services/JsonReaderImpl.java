@@ -33,7 +33,6 @@ import com.safetynet.alerts.model.Person;
 public class JsonReaderImpl {
 
 	private static final Logger logger = LogManager.getLogger("JsonReader");
-
 	@Autowired
 	private ListObjects listObjects;
 	public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
@@ -71,7 +70,7 @@ public class JsonReaderImpl {
 			person.setEmail(node.get("email").asText());
 			listObjects.getPersons().add(person);
 		}
-		logger.info("Creation of the data person /r" + listObjects.getPersons());
+		logger.info("Creation of the data person %b",listObjects.getPersons());
 	}
 
 	private void readFirestationJson(JsonNode mainJson) {
@@ -79,10 +78,10 @@ public class JsonReaderImpl {
 		for (JsonNode node : firestations) {
 			Firestation firestation = new Firestation();
 			firestation.setAddress(node.get("address").asText());
-			firestation.setStation(node.get("station").asText());
+			firestation.setStation(node.get("station").asInt());
 			listObjects.getFirestations().add(firestation);
 		}
-		logger.info("Creation of the data firestation /r" + listObjects.getFirestations());
+		logger.info("Creation of the data firestation %d",listObjects.getFirestations());
 	}
 
 	private void readMedicalrecordsJson(JsonNode mainJson) {
@@ -108,42 +107,32 @@ public class JsonReaderImpl {
 			}
 			listObjects.getMedicalrecords().add(medicalrecord);
 		}
-		logger.info("Creation of the data medicalrecord /r" + listObjects.getMedicalrecords());
+		logger.info("Creation of the data medicalrecord %d",listObjects.getMedicalrecords());
 	}
 
 	private void associateDataToPerson() {
 		List<Person> persons = listObjects.getPersons();
 		List<Firestation> firestations = listObjects.getFirestations();
 		List<Medicalrecord> medicalrecords = listObjects.getMedicalrecords();
-		// TODO Error from here, check why it appears
-		JMapper<PersonDto, Person> userMapperPerson = new JMapper<>(PersonDto.class, Person.class);
-		JMapper<MedicalrecordDto, Medicalrecord> userMapperMedicalrecord = new JMapper<>(MedicalrecordDto.class,
-				Medicalrecord.class);
-		JMapper<FirestationDto, Firestation> userMapperFirestation = new JMapper<>(FirestationDto.class,
-				Firestation.class);
 		for (Firestation firestation : firestations) {
-			FirestationDto resultFirestation = userMapperFirestation.getDestination(firestation);
 			for (Person person : persons) {
-				PersonDto resultPerson = userMapperPerson.getDestination(person);
 				if (person.getAddress().equals(firestation.getAddress())) {
-					person.setFirestation(resultFirestation);
+					person.setFirestation(firestation);
 					persons.set(persons.indexOf(person), person);
-					firestation.getPerson().add(resultPerson);
+					firestation.getPerson().add(person);
 				}
 				for (Medicalrecord medicalrecord : medicalrecords) {
-					MedicalrecordDto resultMedicalrecord = userMapperMedicalrecord.getDestination(medicalrecord);
 					if ((person.getFirstName().equals(medicalrecord.getFirstName()))
 							&& (person.getLastName().equals(medicalrecord.getLastName()))) {
-						medicalrecord.setPerson(resultPerson);
+						medicalrecord.setPerson(person);
 						medicalrecords.set(medicalrecords.indexOf(medicalrecord), medicalrecord);
-						person.setMedicalrecord(resultMedicalrecord);
+						person.setMedicalrecord(medicalrecord);
 						persons.set(persons.indexOf(person), person);
 						break;
 					}
 				}
 			}
 		}
-		logger.info("Deep link created between:/r" + "Person:/r" + listObjects.getPersons() + "/rFirestation:/r"
-				+ listObjects.getFirestations() + "/rmedicalrecord:/r" + listObjects.getMedicalrecords());
+		logger.info("Deep link created between:");
 	}
 }

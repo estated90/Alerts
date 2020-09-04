@@ -2,7 +2,7 @@ package com.safetynet.alerts.interfaces;
 
 import java.util.List;
 
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.dto.PersonDto;
 
 /**
  * @author Nico
@@ -10,6 +10,6 @@ import com.safetynet.alerts.model.Person;
  */
 public interface IPersonsDao {
 
-	public List<Person> returnAll();
+	public List<PersonDto> returnAll();
 
 }

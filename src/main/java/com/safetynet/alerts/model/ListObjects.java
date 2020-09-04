@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.googlecode.jmapper.annotations.JGlobalMap;
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 
 @Component
+@JGlobalMap
 public class ListObjects {
 
     @JsonProperty("persons")

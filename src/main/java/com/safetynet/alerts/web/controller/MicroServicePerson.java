@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.alerts.dao.PersonsDaoImpl;
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.dto.PersonDto;
 
 @RestController
 public class MicroServicePerson {
@@ -17,7 +17,7 @@ public class MicroServicePerson {
 
 	// Récupérer un produit par son Id
 	@GetMapping(value = "person")
-	public List<Person> showPersons() {
+	public List<PersonDto> showPersons() {
 		return personsDao.returnAll();
 
 	}

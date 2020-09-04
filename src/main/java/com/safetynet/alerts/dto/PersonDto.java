@@ -2,7 +2,9 @@ package com.safetynet.alerts.dto;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.googlecode.jmapper.annotations.JGlobalMap;
 
@@ -10,13 +12,19 @@ import com.googlecode.jmapper.annotations.JGlobalMap;
 @JsonPropertyOrder({ "firstName", "lastName", "address", "city", "zip", "phone", "email", "firestation", "medicalrecords"})
 @JGlobalMap
 public class PersonDto {
-
+	@JsonProperty("firstName")
 	private String firstName;
+	@JsonProperty("lastName")
 	private String lastName;
+	@JsonProperty("address")
 	private String address;
+	@JsonProperty("city")
 	private String city;
+	@JsonProperty("zip")
 	private String zip;
+	@JsonProperty("phone")
 	private String phone;
+	@JsonIgnore
 	private String email;
 
 	/**
