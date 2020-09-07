@@ -4,27 +4,37 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.alerts.dto.ChildAlert;
 import com.safetynet.alerts.dto.PersonPerStationDto;
 import com.safetynet.alerts.services.MicroservicesServices;
 
 @RestController
 public class UrlsControllers {
 	
-	private static final Logger logger = LogManager.getLogger("JsonReader");
+	private static final Logger logger = LogManager.getLogger("UrlsControllers");
 	@Autowired
 	private MicroservicesServices microservicesServices;
 
 	@GetMapping(value = "firestation", params = "stationNumber")
 	public PersonPerStationDto returnFirestationFiltered(@RequestParam("stationNumber") int station) {
 		logger.info("GET/firestations?stationNumber={}", station);
-		PersonPerStationDto result = microservicesServices.firestationListPerson(station);
+		PersonPerStationDto result = null;
+		try {
+			result = microservicesServices.firestationListPerson(station);
+		} catch (Exception e) {
+			logger.error("Was not able to calculate the age of a person", e);
+		}
 		logger.info("GET/firestations?stationNumber={} Result: {}",station, result);
 		return result;
+	}
+	
+	@GetMapping(value = "childAlert", params = "address")
+	public ChildAlert returnChildAlert(@RequestParam("address") String address) {
+		
+		return microservicesServices.childrenAlerts(address);
 	}
 
 }

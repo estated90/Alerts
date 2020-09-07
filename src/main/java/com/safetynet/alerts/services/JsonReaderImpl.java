@@ -66,7 +66,7 @@ public class JsonReaderImpl {
 			person.setEmail(node.get("email").asText());
 			listObjects.getPersons().add(person);
 		}
-		logger.info("Creation of the data person %b",listObjects.getPersons());
+		logger.info("Creation of the data person {}",listObjects.getPersons());
 	}
 
 	private void readFirestationJson(JsonNode mainJson) {
@@ -77,7 +77,7 @@ public class JsonReaderImpl {
 			firestation.setStation(node.get("station").asInt());
 			listObjects.getFirestations().add(firestation);
 		}
-		logger.info("Creation of the data firestation %d",listObjects.getFirestations());
+		logger.info("Creation of the data firestation {}",listObjects.getFirestations());
 	}
 
 	private void readMedicalrecordsJson(JsonNode mainJson) {
@@ -103,7 +103,7 @@ public class JsonReaderImpl {
 			}
 			listObjects.getMedicalrecords().add(medicalrecord);
 		}
-		logger.info("Creation of the data medicalrecord %d",listObjects.getMedicalrecords());
+		logger.info("Creation of the data medicalrecord {} ",listObjects.getMedicalrecords());
 	}
 
 	private void associateDataToPerson() {
