@@ -2,30 +2,16 @@ package com.safetynet.alerts.dto;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.googlecode.jmapper.annotations.JGlobalMap;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "firstName", "lastName", "address", "city", "zip", "phone", "email", "firestation", "medicalrecords"})
 @JGlobalMap
 public class PersonDto {
-	@JsonProperty("firstName")
 	private String firstName;
-	@JsonProperty("lastName")
 	private String lastName;
-	@JsonProperty("address")
 	private String address;
-	@JsonProperty("city")
-	private String city;
-	@JsonProperty("zip")
-	private String zip;
-	@JsonProperty("phone")
 	private String phone;
-	@JsonIgnore
-	private String email;
 
 	/**
 	 * No args constructor for use in serialization
@@ -36,26 +22,18 @@ public class PersonDto {
 
 	/**
 	 * 
-	 * @param zip
 	 * @param firstName
 	 * @param lastName
 	 * @param address
-	 * @param city
 	 * @param phone
-	 * @param email
-	 * @param firestation
-	 * @param medicalrecords
+
 	 */
-	public PersonDto(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email) {
+	public PersonDto(String firstName, String lastName, String address, String phone) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
-		this.city = city;
-		this.zip = zip;
 		this.phone = phone;
-		this.email = email;
 	}
 
 	/**
@@ -99,35 +77,6 @@ public class PersonDto {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
-	}
-
-	/**
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	/**
-	 * @return the zip
-	 */
-	public String getZip() {
-		return zip;
-	}
-
-	/**
-	 * @param zip the zip to set
-	 */
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-
 	/**
 	 * @return the phone
 	 */
@@ -141,26 +90,10 @@ public class PersonDto {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this).append("firstName", firstName).append("lastName", lastName)
-				.append("address", address).append("city", city).append("zip", zip).append("phone", phone)
-				.append("email", email).toString();
+				.append("address", address).append("phone", phone).toString();
 	}
 
 }

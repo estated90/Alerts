@@ -3,8 +3,6 @@ package com.safetynet.alerts.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class Person {
 
 	private String firstName;
@@ -14,9 +12,7 @@ public class Person {
 	private String zip;
 	private String phone;
 	private String email;
-	@JsonIgnore
 	private Firestation firestation;
-	@JsonIgnore
 	private Medicalrecord medicalrecords;
 
 	/**

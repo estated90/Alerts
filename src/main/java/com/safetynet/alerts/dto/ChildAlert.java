@@ -2,18 +2,13 @@ package com.safetynet.alerts.dto;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.googlecode.jmapper.annotations.JGlobalMap;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JGlobalMap
 public class ChildAlert {
 
 	/**
 	 * 
 	 */
-	public List<ChildList> child;
-	public List<AdultList> familyMember;
+	private List<ChildList> child;
+	private List<AdultList> familyMember;
 	
 	public ChildAlert() {
 	}

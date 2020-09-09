@@ -13,13 +13,14 @@ public class CalculateAge {
 	private static final Logger logger = LogManager.getLogger("ageCalculation");
 
 	public int ageCalculation(LocalDate birthdate) {
-		Period period = null;
+		int period = 0;
 		try {
 			LocalDate birthdatePerson = birthdate;
-			period = Period.between(birthdatePerson, LocalDate.now());
+			period = Period.between(birthdatePerson, LocalDate.now()).getYears();
 		} catch (Exception e) {
 			logger.error("Cannot calculate the age", e);
 		}
-		return period.getYears();
+			
+			return period;
 	}
 }
