@@ -2,8 +2,6 @@ package com.safetynet.alerts.dto;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.googlecode.jmapper.annotations.JGlobalMap;
 
 @JGlobalMap

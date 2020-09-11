@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.safetynet.alerts.interfaces.IFirestastionDao;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
-import com.safetynet.alerts.model.Person;
 
 @Service
 public class FirestationDaoImpl implements IFirestastionDao {

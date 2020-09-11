@@ -5,14 +5,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Medicalrecord {
 
+	@NotNull(message = "Firstname cannot be null")
 	private String firstName;
+	@NotNull(message = "Lastname cannot be null")
 	private String lastName;
+	@NotNull(message = "birthdate cannot be null")
 	private LocalDate birthdate;
 	private List<String> medications = new ArrayList<>();
 	private List<String> allergies = new ArrayList<>();

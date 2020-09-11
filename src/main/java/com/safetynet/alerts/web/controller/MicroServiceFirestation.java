@@ -17,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.safetynet.alerts.interfaces.IFirestastionDao;
 import com.safetynet.alerts.model.Firestation;
-import com.safetynet.alerts.model.Person;
 
 
 @RestController

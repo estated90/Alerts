@@ -2,6 +2,8 @@ package com.safetynet.alerts.web.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +18,19 @@ import com.safetynet.alerts.dto.Flood;
 import com.safetynet.alerts.dto.PersonInfo;
 import com.safetynet.alerts.dto.CoverageDto;
 import com.safetynet.alerts.dto.PhoneAlert;
-import com.safetynet.alerts.services.MicroservicesServices;
+import com.safetynet.alerts.services.IMicroservicesServices;
 
 @RestController
 public class UrlsControllers {
 
+	private static final Logger logger = LogManager.getLogger("UrlsControllers");
+	
 	@Autowired
-	private MicroservicesServices microservicesServices;
+	private IMicroservicesServices microservicesServices;
 
 	@GetMapping(value = "firestation", params = "stationNumber")
 	public CoverageDto coverageFirestation(@RequestParam("stationNumber") int station) {
+		logger.info("get coverage for firestation {}", station);
 		return microservicesServices.firestationListPerson(station);
 	}
 

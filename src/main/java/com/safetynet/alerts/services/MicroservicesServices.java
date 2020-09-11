@@ -25,13 +25,14 @@ import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Person;
 
 @Service
-public class MicroservicesServices {
+public class MicroservicesServices implements IMicroservicesServices {
 
 	@Autowired
 	private ListObjects listObjects;
 	@Autowired
 	private CalculateAge calculateAge;
 
+	@Override
 	public CoverageDto firestationListPerson(int station) {
 		CoverageDto personPerStationDto = new CoverageDto();
 		int numberAdult = 0;
@@ -62,6 +63,7 @@ public class MicroservicesServices {
 		return personPerStationDto;
 	}
 
+	@Override
 	public ChildAlert childrenAlerts(String address) {
 
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getAddress().equals(address))
@@ -84,6 +86,7 @@ public class MicroservicesServices {
 		return childAlert;
 	}
 
+	@Override
 	public PhoneAlert phoneAlert(int station) {
 		PhoneAlert phoneAlert = new PhoneAlert();
 		List<Firestation> firestations = listObjects.getFirestations().stream()
@@ -98,6 +101,7 @@ public class MicroservicesServices {
 		return phoneAlert;
 	}
 
+	@Override
 	public FireAddress fireAdress(String address) {
 		FireAddress fireAddress = new FireAddress();
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getAddress().equals(address))
@@ -115,6 +119,7 @@ public class MicroservicesServices {
 		return fireAddress;
 	}
 
+	@Override
 	public List<Flood> floodStation(List<Integer> stations) {
 		List<Flood> floodList = new ArrayList<>();
 		for (int station : stations) {
@@ -140,6 +145,7 @@ public class MicroservicesServices {
 		return floodList;
 	}
 
+	@Override
 	public List<PersonInfo> personInfoFirstName(String firstName) {
 		List<PersonInfo> multipleFirstName = new ArrayList<>();
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getFirstName().equals(firstName))
@@ -155,6 +161,7 @@ public class MicroservicesServices {
 		return multipleFirstName;
 	}
 
+	@Override
 	public List<PersonInfo> personInfoLastName(String lastName) {
 		List<PersonInfo> multipleLastName = new ArrayList<>();
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getLastName().equals(lastName))
@@ -169,6 +176,7 @@ public class MicroservicesServices {
 		return multipleLastName;
 	}
 
+	@Override
 	public List<PersonInfo> personInfo(String firstName, String lastName) {
 		List<PersonInfo> allInfo = new ArrayList<>();
 		PersonInfo resultPerson;
@@ -185,6 +193,7 @@ public class MicroservicesServices {
 		return allInfo;
 	}
 
+	@Override
 	public CommunityEmail communityEmail(String city){
 		CommunityEmail communityEmail = new CommunityEmail();
 		List<Person> persons = listObjects.getPersons().stream()
