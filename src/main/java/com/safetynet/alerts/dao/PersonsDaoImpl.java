@@ -1,13 +1,12 @@
 package com.safetynet.alerts.dao;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.googlecode.jmapper.JMapper;
-import com.safetynet.alerts.dto.PersonDto;
 import com.safetynet.alerts.interfaces.IPersonsDao;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Person;
@@ -19,15 +18,40 @@ public class PersonsDaoImpl implements IPersonsDao {
 	private ListObjects listObject;
 	
 	@Override
-	public List<PersonDto> returnAll() {
-		JMapper<PersonDto, Person> userMapperPerson = new JMapper<>(PersonDto.class, Person.class);
-		List<Person> persons = listObject.getPersons();
-		List<PersonDto> personsDto = new ArrayList<>();
-		for (Person person : persons) {
-			PersonDto resultPerson = userMapperPerson.getDestination(person);
-			personsDto.add(resultPerson);
-		}
-		return personsDto;
+	public List<Person> returnAllPerson() {
+		return listObject.getPersons();
+	}
+	
+	@Override
+	public Person savePerson(Person person) {
+		listObject.getPersons().add(person);
+		return person;
 	}
 
+	@Override
+	public Person updatePerson(@Valid Person person) {
+		String firstName = person.getFirstName();
+		String lastName = person.getLastName();
+		List<Person> persons = listObject.getPersons();
+		for(Person person2 : persons) {
+			if(person2.getFirstName().equals(firstName)&&person2.getLastName().contentEquals(lastName)) {
+				persons.set(persons.indexOf(person2), person);
+				break;
+			}
+		}
+		return person;
+	}
+	@Override
+	public Person deletePerson(Person person) {
+		String firstName = person.getFirstName();
+		String lastName = person.getLastName();
+		List<Person> persons = listObject.getPersons();
+		for(Person person2 : persons) {
+			if(person2.getFirstName().equals(firstName)&&person2.getLastName().contentEquals(lastName)) {
+				persons.remove(persons.indexOf(person2));
+				break;
+			}
+		}
+		return person;
+	}
 }

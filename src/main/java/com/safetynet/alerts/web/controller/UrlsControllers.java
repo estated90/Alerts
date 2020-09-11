@@ -14,7 +14,7 @@ import com.safetynet.alerts.dto.CommunityEmail;
 import com.safetynet.alerts.dto.FireAddress;
 import com.safetynet.alerts.dto.Flood;
 import com.safetynet.alerts.dto.PersonInfo;
-import com.safetynet.alerts.dto.PersonPerStationDto;
+import com.safetynet.alerts.dto.CoverageDto;
 import com.safetynet.alerts.dto.PhoneAlert;
 import com.safetynet.alerts.services.MicroservicesServices;
 
@@ -25,7 +25,7 @@ public class UrlsControllers {
 	private MicroservicesServices microservicesServices;
 
 	@GetMapping(value = "firestation", params = "stationNumber")
-	public PersonPerStationDto coverageFirestation(@RequestParam("stationNumber") int station) {
+	public CoverageDto coverageFirestation(@RequestParam("stationNumber") int station) {
 		return microservicesServices.firestationListPerson(station);
 	}
 
@@ -76,7 +76,7 @@ public class UrlsControllers {
 	    loggingFilter.setIncludeClientInfo(true);
 	    loggingFilter.setIncludeQueryString(true);
 	    loggingFilter.setIncludePayload(true);
-	    loggingFilter.setIncludeHeaders(true);
+	    loggingFilter.setIncludeHeaders(false);
 	    return loggingFilter;
 	}
 }

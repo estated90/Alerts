@@ -18,7 +18,7 @@ import com.safetynet.alerts.dto.FireAddressInhabitant;
 import com.safetynet.alerts.dto.Flood;
 import com.safetynet.alerts.dto.PersonDto;
 import com.safetynet.alerts.dto.PersonInfo;
-import com.safetynet.alerts.dto.PersonPerStationDto;
+import com.safetynet.alerts.dto.CoverageDto;
 import com.safetynet.alerts.dto.PhoneAlert;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
@@ -32,8 +32,8 @@ public class MicroservicesServices {
 	@Autowired
 	private CalculateAge calculateAge;
 
-	public PersonPerStationDto firestationListPerson(int station) {
-		PersonPerStationDto personPerStationDto = new PersonPerStationDto();
+	public CoverageDto firestationListPerson(int station) {
+		CoverageDto personPerStationDto = new CoverageDto();
 		int numberAdult = 0;
 		int numberChild = 0;
 		int age = 0;

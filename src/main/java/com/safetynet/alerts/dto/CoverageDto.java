@@ -7,7 +7,7 @@ import java.util.List;
  * @author nicolas
  *
  */
-public class PersonPerStationDto {
+public class CoverageDto {
 	private List<PersonDto> person = new ArrayList<>();
 	private int numberOfAdult;
 	private int numberOfChildren;
@@ -16,7 +16,7 @@ public class PersonPerStationDto {
      * No args constructor for use in serialization
      * 
      */
-    public PersonPerStationDto() {
+    public CoverageDto() {
     }
 	
 	/**
@@ -30,7 +30,7 @@ public class PersonPerStationDto {
 	 * @param numberOfAdult
 	 * @param numberOfChildren
 	 */
-	public PersonPerStationDto(List<PersonDto> personDto, int numberOfAdult, int numberOfChildren) {
+	public CoverageDto(List<PersonDto> personDto, int numberOfAdult, int numberOfChildren) {
 		super();
 		this.person = personDto;
 		this.numberOfAdult = numberOfAdult;

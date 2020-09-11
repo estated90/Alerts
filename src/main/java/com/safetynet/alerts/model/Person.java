@@ -1,19 +1,37 @@
 
 package com.safetynet.alerts.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 public class Person {
 
+	@NotNull(message = "Firstname cannot be null")
 	private String firstName;
+	@NotNull(message = "Lastname cannot be null")
 	private String lastName;
+	@NotNull(message = "address cannot be null")
 	private String address;
+	@NotNull(message = "city cannot be null")
 	private String city;
+	@NotNull(message = "zip cannot be null")
 	private String zip;
+	@Size(min = 6, max = 14, message 
+    = "phone number must be between 6 and 14 characters")
 	private String phone;
+	@Email(message = "Email should be valid")
+    @NotNull
 	private String email;
+	@JsonIgnore
 	private Firestation firestation;
-	private Medicalrecord medicalrecords;
+	@JsonIgnore
+	private Medicalrecord medicalrecord;
 
 	/**
 	 * No args constructor for use in serialization
@@ -45,7 +63,7 @@ public class Person {
 		this.phone = phone;
 		this.email = email;
 		this.firestation = firestation;
-		this.medicalrecords = medicalrecords;
+		this.medicalrecord = medicalrecords;
 	}
 
 	public String getFirstName() {
@@ -113,18 +131,18 @@ public class Person {
 	}
 
 	public Medicalrecord getMedicalrecord() {
-		return medicalrecords;
+		return medicalrecord;
 	}
 
 	public void setMedicalrecord(Medicalrecord medicalrecords) {
-		this.medicalrecords = medicalrecords;
+		this.medicalrecord = medicalrecords;
 	}
 
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this).append("firstName", firstName).append("lastName", lastName)
 				.append("address", address).append("city", city).append("zip", zip).append("phone", phone)
-				.append("email", email).append("firestation", firestation).append("medicalrecords", medicalrecords)
+				.append("email", email).append("firestation", firestation).append("medicalrecords", medicalrecord)
 				.toString();
 	}
 
