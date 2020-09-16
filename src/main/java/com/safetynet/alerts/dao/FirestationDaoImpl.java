@@ -5,14 +5,14 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import com.safetynet.alerts.interfaces.IFirestastionDao;
+import com.safetynet.alerts.interfaces.IFirestationDao;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
 
-@Service
-public class FirestationDaoImpl implements IFirestastionDao {
+@Component
+public class FirestationDaoImpl implements IFirestationDao {
 
 	@Autowired
 	private ListObjects listObject;
@@ -30,10 +30,10 @@ public class FirestationDaoImpl implements IFirestastionDao {
 
 	@Override
 	public Firestation updateFirestation(@Valid Firestation firestation) {
-		String stationNumber = firestation.getAddress();
+		String stationAddress = firestation.getAddress();
 		List<Firestation> firestations = listObject.getFirestations();
 		for (Firestation firestation2 : firestations) {
-			if (firestation2.getAddress().equals(stationNumber)) {
+			if (firestation2.getAddress().equals(stationAddress)) {
 				firestations.set(firestations.indexOf(firestation2), firestation);
 				break;
 			}

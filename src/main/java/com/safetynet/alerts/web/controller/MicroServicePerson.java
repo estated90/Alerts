@@ -23,6 +23,8 @@ public class MicroServicePerson {
 
 	@Autowired
 	private IPersonsDao personsDao;
+	
+	private String path = "/{lastName}";
 
 	@GetMapping(value = "person")
 	public List<Person> showPersons() {
@@ -36,7 +38,7 @@ public class MicroServicePerson {
 		if (personAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
 				.buildAndExpand(personAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -48,7 +50,7 @@ public class MicroServicePerson {
 		if (personModified == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
 				.buildAndExpand(personModified.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -60,7 +62,7 @@ public class MicroServicePerson {
 		if (personModified == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
 				.buildAndExpand(personModified.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();

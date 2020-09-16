@@ -23,6 +23,8 @@ public class MicroServiceMedicalrecords {
 	@Autowired
 	private IMedicalrecords medicalrecords;
 
+	private String path = "/{lastName}";
+	
 	@GetMapping(value = "medicalrecord")
 	public List<Medicalrecord> allmedicalrecords() {
 		return medicalrecords.returnAllMedicalRecord();
@@ -35,7 +37,7 @@ public class MicroServiceMedicalrecords {
 		if (medicalrecordAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
 				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -47,7 +49,7 @@ public class MicroServiceMedicalrecords {
 		if (medicalrecordAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
 				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -59,7 +61,7 @@ public class MicroServiceMedicalrecords {
 		if (medicalrecordAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
 				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();

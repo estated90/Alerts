@@ -37,11 +37,10 @@ public class Firestation {
      * @param address
      * @param station
      */
-    public Firestation(String address, int station, List<Person> person) {
+    public Firestation(String address, int station) {
         super();
         this.address = address;
         this.station = station;
-        this.person = person;
     }
 
     public String getAddress() {

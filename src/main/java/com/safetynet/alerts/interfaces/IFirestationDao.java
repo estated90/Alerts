@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Component;
 import com.safetynet.alerts.model.Firestation;
 
-public interface IFirestastionDao {
+@Component
+public interface IFirestationDao {
 
 	public List<Firestation> returnAllFirestation();
 
