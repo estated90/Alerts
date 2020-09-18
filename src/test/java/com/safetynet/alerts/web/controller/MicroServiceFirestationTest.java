@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,6 +23,7 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.Arrays;
 import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -40,7 +42,7 @@ import com.safetynet.alerts.model.Firestation;
 class MicroServiceFirestationTest {
 
 	private MockMvc mockMvc;
-	@Mock
+	@Spy
 	private static IFirestationDao firestastionDao;
 	@InjectMocks
 	private static MicroServiceFirestation microServiceFirestation;

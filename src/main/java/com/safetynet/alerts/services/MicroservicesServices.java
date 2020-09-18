@@ -20,6 +20,7 @@ import com.safetynet.alerts.dto.PersonDto;
 import com.safetynet.alerts.dto.PersonInfo;
 import com.safetynet.alerts.dto.CoverageDto;
 import com.safetynet.alerts.dto.PhoneAlert;
+import com.safetynet.alerts.interfaces.IMicroservicesServices;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Person;

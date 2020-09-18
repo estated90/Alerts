@@ -1,7 +1,6 @@
 package com.safetynet.alerts.dao;
 
 import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,9 @@ public class FirestationDaoImpl implements IFirestationDao {
 	@Override
 	public Firestation saveFirestation(@Valid Firestation firestation) {
 		listObject.getFirestations().add(firestation);
-		return firestation;
+		Firestation firestation2 = listObject.getFirestations().stream()
+				.filter(str -> str.getAddress().equals(firestation.getAddress())).findAny().orElse(null);
+		return firestation2;
 	}
 
 	@Override

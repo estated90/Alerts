@@ -18,7 +18,7 @@ import com.safetynet.alerts.dto.Flood;
 import com.safetynet.alerts.dto.PersonInfo;
 import com.safetynet.alerts.dto.CoverageDto;
 import com.safetynet.alerts.dto.PhoneAlert;
-import com.safetynet.alerts.services.IMicroservicesServices;
+import com.safetynet.alerts.interfaces.IMicroservicesServices;
 
 @RestController
 public class UrlsControllers {
