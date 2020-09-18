@@ -3,16 +3,16 @@ package com.safetynet.alerts.web.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -20,9 +20,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -36,16 +33,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.filter.CORSFilter;
 import com.safetynet.alerts.interfaces.IFirestationDao;
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.ListObjects;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(controllers = MicroServiceFirestation.class)
+@WebMvcTest(IFirestationDao.class)
+@ExtendWith(MockitoExtension.class)
 class MicroServiceFirestationTest {
 
+	@Autowired
 	private MockMvc mockMvc;
-	@Spy
-	private static IFirestationDao firestastionDao;
+	@Mock
+	private IFirestationDao firestastionDao;
+	@Mock
+	private ListObjects listObjects;
 	@InjectMocks
-	private static MicroServiceFirestation microServiceFirestation;
+	private MicroServiceFirestation microServiceFirestation;
 
 	
 	@BeforeEach
@@ -59,24 +60,28 @@ class MicroServiceFirestationTest {
 	}
 
 	@Test
-	void whenValidGet_thenPortListened() throws Exception {
-		List<Firestation> firestation = Arrays.asList(new Firestation("1509 Culver St", 3),
-				new Firestation("29 15th St", 2));
-		when(firestastionDao.returnAllFirestation()).thenReturn(firestation);
+	void givenListFirestation_whenGet_thenReturnList() throws Exception {
+		listObjects = new ListObjects();
+		Firestation firestation1 = new Firestation("1509 Culver St", 3);
+		Firestation firestation2 = new Firestation("29 15th St", 2);
+		listObjects.getFirestations().add(firestation1);
+		listObjects.getFirestations().add(firestation2);
 		mockMvc.perform(get("/firestation")).andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(jsonPath("$", hasSize(2)))
-				.andExpect(jsonPath("$[0].station", is(3))).andExpect(jsonPath("$[0].address", is("1509 Culver St")))
-				.andExpect(jsonPath("$[1].station", is(2))).andExpect(jsonPath("$[1].address", is("29 15th St")));
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$", hasSize(2)))
+				.andExpect(jsonPath("$[0].station", is(3)))
+				.andExpect(jsonPath("$[0].address", is("1509 Culver St")))
+				.andExpect(jsonPath("$[1].station", is(2)))
+				.andExpect(jsonPath("$[1].address", is("29 15th St")));
 		verify(firestastionDao, times(1)).returnAllFirestation();
 		verifyNoMoreInteractions(firestastionDao);
 	}
 
 	@Test
 	public void test_create_firestation_failure() throws Exception {
-		Firestation firestation = new Firestation("1509 Culver St", 5);
-		when(firestastionDao.saveFirestation(firestation)).thenReturn(null);
+		Firestation firestation = null;
 		mockMvc.perform(post("/firestation").contentType(MediaType.APPLICATION_JSON).content(asJsonString(firestation)))
-				.andExpect(status().isNoContent());
+				.andExpect(status().isBadRequest());
 	}
 
 	@Test
