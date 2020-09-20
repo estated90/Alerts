@@ -11,6 +11,7 @@ import com.safetynet.alerts.interfaces.IMedicalrecords;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Medicalrecord;
 
+
 @Service
 public class MedicalRecordDaoImpl implements IMedicalrecords {
 

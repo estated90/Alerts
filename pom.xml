@@ -16,6 +16,8 @@
 	<description>Softaware to alert people of imminent security problem</description>
 
 	<properties>
+		<maven.compiler.source>14</maven.compiler.source>
+		<maven.compiler.target>14</maven.compiler.target>
 		<java.version>14</java.version>
 		<sonar.projectKey>estated90_SafetyAlerts</sonar.projectKey>
 		<sonar.organization>estated90</sonar.organization>
@@ -177,14 +179,20 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>14</source>
+					<target>14</target>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+
 				</configuration>
 			</plugin>
 		</plugins>

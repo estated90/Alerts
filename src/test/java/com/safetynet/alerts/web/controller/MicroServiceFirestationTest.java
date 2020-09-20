@@ -61,11 +61,6 @@ class MicroServiceFirestationTest {
 
 	@Test
 	void givenListFirestation_whenGet_thenReturnList() throws Exception {
-		listObjects = new ListObjects();
-		Firestation firestation1 = new Firestation("1509 Culver St", 3);
-		Firestation firestation2 = new Firestation("29 15th St", 2);
-		listObjects.getFirestations().add(firestation1);
-		listObjects.getFirestations().add(firestation2);
 		mockMvc.perform(get("/firestation")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(2)))

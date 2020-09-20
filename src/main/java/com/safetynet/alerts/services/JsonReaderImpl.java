@@ -15,24 +15,27 @@ import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.alerts.interfaces.IJsonReader;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.Person;
 
-@Component
-public class JsonReaderImpl {
+@Configuration
+@ComponentScan(basePackages = "com.safetynet.alerts.model.ListObjects")
+public class JsonReaderImpl implements IJsonReader{
 
 	private static final Logger logger = LogManager.getLogger("JsonReader");
-	@Autowired
+	@Autowired(required=true)
 	private ListObjects listObjects;
 	public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
+	@Override
 	@PostConstruct
 	public void readerList() {
 		JsonNode mainJson = null;
