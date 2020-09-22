@@ -31,7 +31,7 @@ public class Person {
 	@JsonIgnore
 	private Firestation firestation;
 	@JsonIgnore
-	private Medicalrecord medicalrecord;
+	private Medicalrecords medicalrecord;
 
 	/**
 	 * No args constructor for use in serialization
@@ -53,7 +53,7 @@ public class Person {
 	 * @param medicalrecords
 	 */
 	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email, Firestation firestation, Medicalrecord medicalrecords) {
+			String email, Firestation firestation, Medicalrecords medicalrecords) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -130,11 +130,11 @@ public class Person {
 		this.firestation = firestation;
 	}
 
-	public Medicalrecord getMedicalrecord() {
+	public Medicalrecords getMedicalrecord() {
 		return medicalrecord;
 	}
 
-	public void setMedicalrecord(Medicalrecord medicalrecords) {
+	public void setMedicalrecord(Medicalrecords medicalrecords) {
 		this.medicalrecord = medicalrecords;
 	}
 

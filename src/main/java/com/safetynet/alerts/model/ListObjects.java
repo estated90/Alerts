@@ -12,7 +12,7 @@ public class ListObjects {
 
 	private List<Person> persons = new ArrayList<>();
 	private List<Firestation> firestations = new ArrayList<>();
-	private List<Medicalrecord> medicalrecords = new ArrayList<>();
+	private List<Medicalrecords> medicalrecords = new ArrayList<>();
 
 	/**
 	 * No args constructor for use in serialization
@@ -27,7 +27,7 @@ public class ListObjects {
 	 * @param firestations
 	 * @param medicalrecords
 	 */
-	public ListObjects(List<Person> persons, List<Firestation> firestations, List<Medicalrecord> medicalrecords) {
+	public ListObjects(List<Person> persons, List<Firestation> firestations, List<Medicalrecords> medicalrecords) {
 		super();
 		this.persons = persons;
 		this.firestations = firestations;
@@ -50,11 +50,11 @@ public class ListObjects {
 		this.firestations = firestations;
 	}
 
-	public List<Medicalrecord> getMedicalrecords() {
+	public List<Medicalrecords> getMedicalrecords() {
 		return medicalrecords;
 	}
 
-	public void setMedicalrecords(List<Medicalrecord> medicalrecords) {
+	public void setMedicalrecords(List<Medicalrecords> medicalrecords) {
 		this.medicalrecords = medicalrecords;
 	}
 

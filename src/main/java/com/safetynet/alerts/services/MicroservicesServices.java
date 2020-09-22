@@ -41,8 +41,12 @@ public class MicroservicesServices implements IMicroservicesServices {
 		int age = 0;
 		LocalDate birthdate = null;
 		List<Firestation> firestations = listObjects.getFirestations();
-		for (Firestation firestation : firestations) {
-			if (firestation.getStation() == station) {
+		List<Firestation> firestationFiltered = firestations.stream().filter(str -> str.getStation() == station)
+				.collect(Collectors.toList());
+		if (firestationFiltered.size() == 0) {
+			return null;
+		} else {
+			for (Firestation firestation : firestationFiltered) {
 				List<Person> persons = firestation.getPerson();
 				JMapper<PersonDto, Person> userMapperPerson = new JMapper<>(PersonDto.class, Person.class);
 				for (Person person : persons) {
@@ -58,10 +62,10 @@ public class MicroservicesServices implements IMicroservicesServices {
 					personDto.add(resultPerson);
 				}
 			}
+			personPerStationDto.setNumberOfAdult(numberAdult);
+			personPerStationDto.setNumberOfChildren(numberChild);
+			return personPerStationDto;
 		}
-		personPerStationDto.setNumberOfAdult(numberAdult);
-		personPerStationDto.setNumberOfChildren(numberChild);
-		return personPerStationDto;
 	}
 
 	@Override
@@ -195,15 +199,14 @@ public class MicroservicesServices implements IMicroservicesServices {
 	}
 
 	@Override
-	public CommunityEmail communityEmail(String city){
+	public CommunityEmail communityEmail(String city) {
 		CommunityEmail communityEmail = new CommunityEmail();
-		List<Person> persons = listObjects.getPersons().stream()
-				.filter(str -> str.getCity().equals(city))
+		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getCity().equals(city))
 				.collect(Collectors.toList());
 		for (Person person : persons) {
 			communityEmail.getEmail().add(person.getEmail());
 		}
 		return communityEmail;
-		
+
 	}
 }

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.interfaces.IJsonReader;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
-import com.safetynet.alerts.model.Medicalrecord;
+import com.safetynet.alerts.model.Medicalrecords;
 import com.safetynet.alerts.model.Person;
 
 @Configuration
@@ -86,7 +86,7 @@ public class JsonReaderImpl implements IJsonReader{
 	private void readMedicalrecordsJson(JsonNode mainJson) {
 		JsonNode medicalrecords = mainJson.at("/medicalrecords");
 		for (JsonNode node : medicalrecords) {
-			Medicalrecord medicalrecord = new Medicalrecord();
+			Medicalrecords medicalrecord = new Medicalrecords();
 			medicalrecord.setFirstName(node.get("firstName").asText());
 			medicalrecord.setLastName(node.get("lastName").asText());
 			try {
@@ -112,7 +112,7 @@ public class JsonReaderImpl implements IJsonReader{
 	private void associateDataToPerson() {
 		List<Person> persons = listObjects.getPersons();
 		List<Firestation> firestations = listObjects.getFirestations();
-		List<Medicalrecord> medicalrecords = listObjects.getMedicalrecords();
+		List<Medicalrecords> medicalrecords = listObjects.getMedicalrecords();
 		for (Firestation firestation : firestations) {
 			for (Person person : persons) {
 				if (person.getAddress().equals(firestation.getAddress())) {
@@ -120,7 +120,7 @@ public class JsonReaderImpl implements IJsonReader{
 					persons.set(persons.indexOf(person), person);
 					firestation.getPerson().add(person);
 				}
-				for (Medicalrecord medicalrecord : medicalrecords) {
+				for (Medicalrecords medicalrecord : medicalrecords) {
 					if ((person.getFirstName().equals(medicalrecord.getFirstName()))
 							&& (person.getLastName().equals(medicalrecord.getLastName()))) {
 						medicalrecord.setPerson(person);

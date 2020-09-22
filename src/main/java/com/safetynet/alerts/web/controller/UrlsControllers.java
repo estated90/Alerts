@@ -6,8 +6,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.HeadersBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
@@ -28,10 +33,17 @@ public class UrlsControllers {
 	@Autowired
 	private IMicroservicesServices microservicesServices;
 
-	@GetMapping(value = "firestation", params = "stationNumber")
-	public CoverageDto coverageFirestation(@RequestParam("stationNumber") int station) {
+	@GetMapping(value = "firestation", params = "stationNumber", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<CoverageDto> coverageFirestation(@RequestParam("stationNumber") int station) {
 		logger.info("get coverage for firestation {}", station);
-		return microservicesServices.firestationListPerson(station);
+		CoverageDto coverage = microservicesServices.firestationListPerson(station);
+		if (coverage == null) {
+			logger.info("The station was not found");
+			return ResponseEntity.noContent().build();
+		}
+		logger.info("Coverage of station {} is {}", station, coverage);
+		return ResponseEntity.ok().body(coverage);
 	}
 
 	@GetMapping(value = "childAlert", params = "address")

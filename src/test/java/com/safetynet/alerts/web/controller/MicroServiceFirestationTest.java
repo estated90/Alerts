@@ -40,10 +40,6 @@ class MicroServiceFirestationTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-	@InjectMocks
-	private FirestationDaoImpl firestastionDao;
-	@InjectMocks
-	private MicroServiceFirestation microServiceFirestation;
 
 	@BeforeEach
 	public void init() {

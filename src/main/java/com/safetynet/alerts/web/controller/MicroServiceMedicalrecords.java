@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.safetynet.alerts.dao.MedicalRecordDaoImpl;
-import com.safetynet.alerts.model.Medicalrecord;
+import com.safetynet.alerts.model.Medicalrecords;
 
 @RestController
 public class MicroServiceMedicalrecords {
@@ -29,15 +29,15 @@ public class MicroServiceMedicalrecords {
 	private MedicalRecordDaoImpl medicalrecords;
 	
 	@GetMapping(value = "medicalrecord")
-	public List<Medicalrecord> allmedicalrecords() {
+	public List<Medicalrecords> allmedicalrecords() {
 		logger.info("getting all medicalrecord");
 		return medicalrecords.returnAllMedicalRecord();
 	}
 
 	@PostMapping(value = "/medicalrecord")
-	public ResponseEntity<String> addMedicalrecord(@Valid @RequestBody Medicalrecord medicalrecord) {
+	public ResponseEntity<String> addMedicalrecord(@Valid @RequestBody Medicalrecords medicalrecord) {
 		logger.info("adding medicalrecord for: {}", medicalrecord);
-		Medicalrecord medicalrecordAdded = medicalrecords.saveMedicalRecord(medicalrecord);
+		Medicalrecords medicalrecordAdded = medicalrecords.saveMedicalRecord(medicalrecord);
 		if (medicalrecordAdded == null) {
 			logger.info("Medicalrecord was not created");
 			return ResponseEntity.unprocessableEntity().body("The medicalrecord was not added");
@@ -49,9 +49,9 @@ public class MicroServiceMedicalrecords {
 	}
 
 	@PutMapping(path = "/medicalrecord")
-	public ResponseEntity<String> updateMedicalrecord(@Valid @RequestBody Medicalrecord medicalrecord) {
+	public ResponseEntity<String> updateMedicalrecord(@Valid @RequestBody Medicalrecords medicalrecord) {
 		logger.info("updating firestation: {}", medicalrecord);
-		Medicalrecord medicalrecordAdded = medicalrecords.updateMedicalRecord(medicalrecord);
+		Medicalrecords medicalrecordAdded = medicalrecords.updateMedicalRecord(medicalrecord);
 		if (medicalrecordAdded == null) {
 			logger.info("Medicalrecord for {} {} was not found", medicalrecord.getLastName(), medicalrecord.getFirstName());
 			return ResponseEntity.unprocessableEntity().body(("The medicalrecord was not found"));
@@ -63,9 +63,9 @@ public class MicroServiceMedicalrecords {
 	}
 
 	@DeleteMapping(path = "/medicalrecord")
-	public ResponseEntity<String> deleteMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
+	public ResponseEntity<String> deleteMedicalrecord(@RequestBody Medicalrecords medicalrecord) {
 		logger.info("deleting medicalrecord : {}", medicalrecord);
-		Medicalrecord medicalrecordAdded = medicalrecords.deleteMedicalRecord(medicalrecord);
+		Medicalrecords medicalrecordAdded = medicalrecords.deleteMedicalRecord(medicalrecord);
 		if (medicalrecordAdded == null) {
 			logger.info("Medicalrecord for {} {} was not found", medicalrecord.getLastName(), medicalrecord.getFirstName());
 			return ResponseEntity.unprocessableEntity().body("The medicalrecord was not found");

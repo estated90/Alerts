@@ -14,9 +14,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -36,44 +33,30 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.safetynet.alerts.dao.MedicalRecordDaoImpl;
-import com.safetynet.alerts.model.Medicalrecords;
+import com.safetynet.alerts.model.Person;
 
 @WebMvcTest(MedicalRecordDaoImpl.class)
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
-class MicroServiceMedicalrecordsTest {
+class MicroServicePersonTest {
+
+	@AfterEach
+	void tearDown() throws Exception {
+	}
 
 	@Autowired
 	private MockMvc mockMvc;
 
-	private static List<String> medicationsList;
-	private static List<String> allergiesList;
-	private static LocalDate birthdate = LocalDate.now().minusYears(30);
-	static {
-		medicationsList = new ArrayList<>();
-		medicationsList.add("medication1");
-
-		allergiesList = new ArrayList<>();
-		allergiesList.add("allergies");
-	}
-
 	@BeforeEach
 	public void init() {
 		MockitoAnnotations.initMocks(this);
-		// mockMvc =
-		// MockMvcBuilders.standaloneSetup(microServiceFirestation).addFilters(new
-		// CORSFilter()).build();
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
 	}
 
 	@Test
 	@Order(1)
 	@Tag("SuccessfulRequest")
 	void givenListFirestation_whenGet_thenReturnList() throws Exception {
-		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
+		mockMvc.perform(get("/person")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(23))).andExpect(jsonPath("$[0].firstName", is("John")))
 				.andExpect(jsonPath("$[0].lastName", is("Boyd"))).andExpect(jsonPath("$[13].firstName", is("Zach")))
@@ -84,30 +67,28 @@ class MicroServiceMedicalrecordsTest {
 	@Test
 	@Tag("SuccessfulRequest")
 	void test_post_put_delete_firestation_success() throws Exception {
-		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test", birthdate, medicationsList, allergiesList);
-		String medicalrecordString = asString(medicalrecord);
-		mockMvc.perform(post("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
+		Person person = new Person("Julien", "Test", "address", "Somewhere","69122","0684949494","julientest@somewhere.com",null,null);
+		String medicalrecordString = asString(person);
+		mockMvc.perform(post("/person").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
 				.andExpect(status().isCreated())
-				.andExpect(header().string("location", containsString("http://localhost/medicalrecord/")));
-		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
+				.andExpect(header().string("location", containsString("http://localhost/person/")));
+		mockMvc.perform(get("/person")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(24))).andExpect(jsonPath("$[23].firstName", is("Julien")))
-				.andExpect(jsonPath("$[23].lastName", is("Test")));
-		medicalrecord = new Medicalrecords("Julien", "Test", LocalDate.now().minusYears(20), null, null);
-		medicalrecordString = asString(medicalrecord);
-		mockMvc.perform(
-				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
+				.andExpect(jsonPath("$[23].address", is("address")));
+		person = new Person("Julien", "Test", "other address", "Somewhere","69122","0684949494","julientest@somewhere.com",null,null);
+		medicalrecordString = asString(person);
+		mockMvc.perform(put("/person").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
 				.andExpect(status().isCreated());
-		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
+		mockMvc.perform(get("/person")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$", hasSize(24)))
-				.andExpect(jsonPath("$[23].birthdate", is(LocalDate.now().minusYears(20).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
-		medicalrecord = new Medicalrecords("Julien", "Test", null, null, null);
-		medicalrecordString = asString(medicalrecord);
-		mockMvc.perform(
-				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
+				.andExpect(jsonPath("$", hasSize(24))).andExpect(jsonPath("$[23].address",
+						is("other address")));
+		person = new Person("Julien", "Test", null, null, null,null,null,null,null);
+		medicalrecordString = asString(person);
+		mockMvc.perform(delete("/person").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
 				.andExpect(status().isCreated());
-		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
+		mockMvc.perform(get("/person")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(23))).andExpect(jsonPath("$[22].firstName", is("Eric")))
 				.andExpect(jsonPath("$[22].lastName", is("Cadigan")));
@@ -116,46 +97,48 @@ class MicroServiceMedicalrecordsTest {
 	@Order(3)
 	@Test
 	void test_create_firestation_failure() throws Exception {
-		Medicalrecords medicalrecord = null;
+		Person person = null;
 		mockMvc.perform(
-				post("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
+				post("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
 				.andExpect(status().isBadRequest());
 	}
 
 	@Order(4)
 	@Test
 	void test_update_firestation_failure() throws Exception {
-		Medicalrecords medicalrecord = null;
+		Person person = null;
 		mockMvc.perform(
-				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
+				put("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
 				.andExpect(status().isBadRequest());
 	}
 
 	@Order(5)
 	@Test
 	void test_delete_firestation_failure() throws Exception {
-		Medicalrecords medicalrecord = null;
+		Person person = null;
 		mockMvc.perform(
-				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
+				delete("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
 				.andExpect(status().isBadRequest());
 	}
 
 	@Order(6)
 	@Test
 	void test_update_firestation_failure_NotFoundItem() throws Exception {
-		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test2", null, null, null);
+		Person person = new Person("Julien", "Test", null, null, null,null,null,null,null);
 		mockMvc.perform(
-				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("The medicalrecord was not found"));
+				put("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
+				.andExpect(status().isUnprocessableEntity())
+				.andExpect(content().string("The person was not updated"));
 	}
 
 	@Order(7)
 	@Test
 	void test_delete_firestation_failure_NotFoundItem() throws Exception {
-		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test0", null, null, null);
+		Person person = new Person("Julien", "Test", null, null, null,null,null,null,null);
 		mockMvc.perform(
-				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("The medicalrecord was not found"));
+				delete("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
+				.andExpect(status().isUnprocessableEntity())
+				.andExpect(content().string("The person was not found"));
 	}
 
 	public static String asJsonString(final Object obj) {
@@ -166,15 +149,16 @@ class MicroServiceMedicalrecordsTest {
 		}
 	}
 
-	public static String asString(final Medicalrecords medicalrecord) {
+	public static String asString(final Person person) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new JavaTimeModule());
-			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(medicalrecord);
+			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(person);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 	public static String asString(final LocalDate date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
 		return date.format(formatter);

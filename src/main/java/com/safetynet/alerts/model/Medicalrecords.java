@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Medicalrecord {
+public class Medicalrecords {
 
 	@NotNull(message = "Firstname cannot be null")
 	private String firstName;
@@ -30,7 +30,7 @@ public class Medicalrecord {
 	 * No args constructor for use in serialization
 	 * 
 	 */
-	public Medicalrecord() {
+	public Medicalrecords() {
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class Medicalrecord {
 	 * @param birthdate
 	 * @param medications
 	 */
-	public Medicalrecord(String firstName, String lastName, LocalDate birthdate, List<String> medications,
+	public Medicalrecords(String firstName, String lastName, LocalDate birthdate, List<String> medications,
 			List<String> allergies) {
 		super();
 		this.firstName = firstName;

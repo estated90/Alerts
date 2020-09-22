@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.alerts.model.ListObjects;
+import com.safetynet.alerts.model.Medicalrecords;
 import com.safetynet.alerts.model.Person;
 
 @Service
@@ -30,25 +31,29 @@ public class PersonsDaoImpl {
 		String firstName = person.getFirstName();
 		String lastName = person.getLastName();
 		List<Person> persons = listObject.getPersons();
-		for(Person person2 : persons) {
-			if(person2.getFirstName().equals(firstName)&&person2.getLastName().contentEquals(lastName)) {
-				persons.set(persons.indexOf(person2), person);
-				break;
-			}
+		Person personFiltered = persons.stream()
+				.filter(str -> str.getFirstName().equals(firstName) && str.getLastName().equals(lastName)).findAny()
+				.orElse(null);
+		if (personFiltered == null) {
+			return null;
+		} else {
+			persons.set(persons.indexOf(personFiltered), person);
+			return personFiltered;
 		}
-		return person;
 	}
 
 	public Person deletePerson(Person person) {
 		String firstName = person.getFirstName();
 		String lastName = person.getLastName();
 		List<Person> persons = listObject.getPersons();
-		for(Person person2 : persons) {
-			if(person2.getFirstName().equals(firstName)&&person2.getLastName().contentEquals(lastName)) {
-				persons.remove(persons.indexOf(person2));
-				break;
-			}
+		Person personFiltered = persons.stream()
+				.filter(str -> str.getFirstName().equals(firstName) && str.getLastName().equals(lastName)).findAny()
+				.orElse(null);
+		if (personFiltered == null) {
+			return null;
+		} else {
+			persons.remove(persons.indexOf(personFiltered));
+			return personFiltered;
 		}
-		return person;
 	}
 }
