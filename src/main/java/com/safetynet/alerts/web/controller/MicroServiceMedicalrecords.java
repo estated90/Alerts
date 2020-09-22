@@ -15,15 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.safetynet.alerts.interfaces.IMedicalrecords;
+import com.safetynet.alerts.dao.MedicalRecordDaoImpl;
 import com.safetynet.alerts.model.Medicalrecord;
 
 @RestController
 public class MicroServiceMedicalrecords {
 	@Autowired
-	private IMedicalrecords medicalrecords;
-
-	private String path = "/{lastName}";
+	private MedicalRecordDaoImpl medicalrecords;
 	
 	@GetMapping(value = "medicalrecord")
 	public List<Medicalrecord> allmedicalrecords() {
@@ -37,7 +35,7 @@ public class MicroServiceMedicalrecords {
 		if (medicalrecordAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
 				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -49,7 +47,7 @@ public class MicroServiceMedicalrecords {
 		if (medicalrecordAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
 				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -61,7 +59,7 @@ public class MicroServiceMedicalrecords {
 		if (medicalrecordAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
 				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();

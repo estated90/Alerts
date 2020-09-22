@@ -7,28 +7,25 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.alerts.interfaces.IMedicalrecords;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Medicalrecord;
 
 
 @Service
-public class MedicalRecordDaoImpl implements IMedicalrecords {
+public class MedicalRecordDaoImpl {
 
 	@Autowired
 	private ListObjects listObject;
 
-	@Override
 	public List<Medicalrecord> returnAllMedicalRecord() {
 		return listObject.getMedicalrecords();
 	}
-	@Override
+
 	public Medicalrecord saveMedicalRecord(Medicalrecord medicalRecord) {
 		listObject.getMedicalrecords().add(medicalRecord);
 		return medicalRecord;
 	}
 
-	@Override
 	public Medicalrecord updateMedicalRecord(@Valid Medicalrecord medicalRecord) {
 		String firstName = medicalRecord.getFirstName();
 		String lastName = medicalRecord.getLastName();
@@ -41,7 +38,7 @@ public class MedicalRecordDaoImpl implements IMedicalrecords {
 		}
 		return medicalRecord;
 	}
-	@Override
+
 	public Medicalrecord deleteMedicalRecord(Medicalrecord medicalRecord) {
 		String firstName = medicalRecord.getFirstName();
 		String lastName = medicalRecord.getLastName();

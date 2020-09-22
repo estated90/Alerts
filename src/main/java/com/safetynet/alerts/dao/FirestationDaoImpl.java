@@ -1,67 +1,61 @@
 package com.safetynet.alerts.dao;
 
 import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.alerts.interfaces.IFirestationDao;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
 
 @Component
-public class FirestationDaoImpl implements IFirestationDao {
+public class FirestationDaoImpl {
 
 	@Autowired
 	private ListObjects listObject;
 
-	@Override
 	public List<Firestation> returnAllFirestation() {
 		return listObject.getFirestations();
 	}
 
-	@Override
 	public Firestation saveFirestation(@Valid Firestation firestation) {
 		listObject.getFirestations().add(firestation);
-		Firestation firestation2 = listObject.getFirestations().stream()
-				.filter(str -> str.getAddress().equals(firestation.getAddress())).findAny().orElse(null);
-		return firestation2;
+		return listObject.getFirestations().stream().filter(str -> str.getAddress().equals(firestation.getAddress()))
+				.findAny().orElse(null);
 	}
 
-	@Override
 	public Firestation updateFirestation(@Valid Firestation firestation) {
 		String stationAddress = firestation.getAddress();
 		List<Firestation> firestations = listObject.getFirestations();
-		for (Firestation firestation2 : firestations) {
-			if (firestation2.getAddress().equals(stationAddress)) {
-				firestations.set(firestations.indexOf(firestation2), firestation);
-				break;
-			}
+		Firestation firestationFiltered = firestations.stream().filter(str -> str.getAddress().equals(stationAddress))
+				.findAny().orElse(null);
+		if (firestationFiltered == null) {
+			return null;
+		} else {
+			firestations.set(firestations.indexOf(firestationFiltered), firestation);
+			return firestation;
 		}
-		return firestation;
 	}
 
-	@Override
 	public Firestation deleteFirestation(Firestation firestation) {
 		List<Firestation> firestations = listObject.getFirestations();
+		Firestation firestationFiltered = null;
 		if (firestation.getAddress() != null) {
-			String stationNumber = firestation.getAddress();
-			for (Firestation firestation2 : firestations) {
-				if (firestation2.getAddress().equals(stationNumber)) {
-					firestations.remove(firestations.indexOf(firestation2));
-					break;
-				}
-			}
+			String stationAddress = firestation.getAddress();
+			firestationFiltered = firestations.stream()
+					.filter(str -> str.getAddress().contentEquals(stationAddress)).findAny().orElse(null);
 		} else if (firestation.getStation() != 0) {
 			int stationNumber = firestation.getStation();
-			for (Firestation firestation2 : firestations) {
-				if (firestation2.getStation() == stationNumber) {
-					firestations.remove(firestations.indexOf(firestation2));
-					break;
-				}
-			}
+			firestationFiltered = firestations.stream().filter(str -> str.getStation() == stationNumber)
+					.findAny().orElse(null);
 		}
-		return firestation;
+		if (firestationFiltered == null) {
+			return null;
+		} else {
+			firestations.remove(firestations.indexOf(firestationFiltered));
+			return firestation;
+		}
 	}
 }

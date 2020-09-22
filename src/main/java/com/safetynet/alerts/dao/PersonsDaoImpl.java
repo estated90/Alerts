@@ -7,28 +7,25 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.alerts.interfaces.IPersonsDao;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Person;
 
 @Service
-public class PersonsDaoImpl implements IPersonsDao {
+public class PersonsDaoImpl {
 
 	@Autowired
 	private ListObjects listObject;
 	
-	@Override
+
 	public List<Person> returnAllPerson() {
 		return listObject.getPersons();
 	}
-	
-	@Override
+
 	public Person savePerson(Person person) {
 		listObject.getPersons().add(person);
 		return person;
 	}
 
-	@Override
 	public Person updatePerson(@Valid Person person) {
 		String firstName = person.getFirstName();
 		String lastName = person.getLastName();
@@ -41,7 +38,7 @@ public class PersonsDaoImpl implements IPersonsDao {
 		}
 		return person;
 	}
-	@Override
+
 	public Person deletePerson(Person person) {
 		String firstName = person.getFirstName();
 		String lastName = person.getLastName();

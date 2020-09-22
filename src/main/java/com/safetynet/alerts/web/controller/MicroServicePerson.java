@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.safetynet.alerts.interfaces.IPersonsDao;
+import com.safetynet.alerts.dao.PersonsDaoImpl;
 import com.safetynet.alerts.model.Person;
+
 
 @RestController
 public class MicroServicePerson {
 
 	@Autowired
-	private IPersonsDao personsDao;
+	private PersonsDaoImpl personsDao;
 	
-	private String path = "/{lastName}";
+	private static final String PATH = "/{lastName}";
 
 	@GetMapping(value = "person")
 	public List<Person> showPersons() {
@@ -38,7 +39,7 @@ public class MicroServicePerson {
 		if (personAdded == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(PATH)
 				.buildAndExpand(personAdded.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -50,7 +51,7 @@ public class MicroServicePerson {
 		if (personModified == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(PATH)
 				.buildAndExpand(personModified.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();
@@ -62,7 +63,7 @@ public class MicroServicePerson {
 		if (personModified == null)
 			return ResponseEntity.noContent().build();
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(path)
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(PATH)
 				.buildAndExpand(personModified.getLastName()).toUri();
 
 		return ResponseEntity.created(location).build();

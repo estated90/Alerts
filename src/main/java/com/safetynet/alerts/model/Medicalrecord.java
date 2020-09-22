@@ -40,14 +40,13 @@ public class Medicalrecord {
 	 * @param medications
 	 */
 	public Medicalrecord(String firstName, String lastName, LocalDate birthdate, List<String> medications,
-			List<String> allergies, Person person) {
+			List<String> allergies) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthdate = birthdate;
 		this.medications = medications;
 		this.allergies = allergies;
-		this.person = person;
 	}
 
 	public String getFirstName() {

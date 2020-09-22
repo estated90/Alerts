@@ -40,7 +40,7 @@ class CalculateAgeTest {
 
 	@Test
 	@Tag("ValidTest")
-	public void givenAOneYoPersons_whenAgeCalculation_thenReturnCorrectAge() {
+	void givenAOneYoPersons_whenAgeCalculation_thenReturnCorrectAge() {
 		// GIVEN
 		int ageGoal = 1;
 		LocalDate date = LocalDate.now().minusYears(ageGoal);
@@ -52,7 +52,7 @@ class CalculateAgeTest {
 
 	@Test
 	@Tag("ValidTest")
-	public void givenASixMonthPerson_whenAgeCalculation_thenReturnOneYear() {
+	void givenASixMonthPerson_whenAgeCalculation_thenReturnOneYear() {
 		// GIVEN
 		int ageGoal = 1;
 		LocalDate date = LocalDate.now().minusMonths(6);
@@ -64,7 +64,7 @@ class CalculateAgeTest {
 
 	@Test
 	@Tag("InvalidTest")
-	public void givenFutureBirthday_whenAgeCalculation_thenIllegalArgumentException() {
+	void givenFutureBirthday_whenAgeCalculation_thenIllegalArgumentException() {
 		// GIVEN
 		LocalDate date = LocalDate.now().plusYears(6);
 		// When
@@ -77,7 +77,7 @@ class CalculateAgeTest {
 	
 	@Test
 	@Tag("InvalidTest")
-	public void givenFutureOneDayBirthday_whenAgeCalculation_thenIllegalArgumentException() {
+	void givenFutureOneDayBirthday_whenAgeCalculation_thenIllegalArgumentException() {
 		// GIVEN
 		LocalDate date = LocalDate.now().plusDays(1);
 		// When
@@ -90,7 +90,7 @@ class CalculateAgeTest {
 	
 	@Test
 	@Tag("InvalidTest")
-	public void givenNullBirthday_whenAgeCalculation_thenIllegalArgumentException() {
+	void givenNullBirthday_whenAgeCalculation_thenIllegalArgumentException() {
 		// GIVEN
 		LocalDate date = null;
 		// When
