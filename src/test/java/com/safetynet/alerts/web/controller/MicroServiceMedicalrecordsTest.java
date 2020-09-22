@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +101,7 @@ class MicroServiceMedicalrecordsTest {
 		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(24)))
-				.andExpect(jsonPath("$[23].birthdate", is(asString(LocalDate.now().minusYears(20)))));
+				.andExpect(jsonPath("$[23].birthdate", is(LocalDate.now().minusYears(20).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
 		medicalrecord = new Medicalrecord("Julien", "Test", null, null, null);
 		medicalrecordString = asString(medicalrecord);
 		mockMvc.perform(
@@ -142,19 +143,19 @@ class MicroServiceMedicalrecordsTest {
 	@Order(6)
 	@Test
 	void test_update_firestation_failure_NotFoundItem() throws Exception {
-		Medicalrecord medicalrecord = new Medicalrecord("Julien", "Test", null, null, null);
+		Medicalrecord medicalrecord = new Medicalrecord("Julien", "Test2", null, null, null);
 		mockMvc.perform(
 				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("Address was unknown"));
+				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("The medicalrecord was not found"));
 	}
 
 	@Order(7)
 	@Test
 	void test_delete_firestation_failure_NotFoundItem() throws Exception {
-		Medicalrecord firestation = new Medicalrecord("Julien", "Test", null, null, null);
+		Medicalrecord firestation = new Medicalrecord("Julien", "Test0", null, null, null);
 		mockMvc.perform(
 				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(firestation)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("Address and Id were unknown"));
+				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("The medicalrecord was not found"));
 	}
 
 	public static String asJsonString(final Object obj) {
@@ -175,12 +176,7 @@ class MicroServiceMedicalrecordsTest {
 		}
 	}
 	public static String asString(final LocalDate date) {
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.registerModule(new JavaTimeModule());
-			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(date);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+		return date.format(formatter);
 	}
 }

@@ -46,6 +46,7 @@ public class MicroServiceFirestation {
 		}
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{station}")
 				.buildAndExpand(firestationAdded.getStation()).toUri();
+		logger.info("{} was created", firestation);
 		return ResponseEntity.created(location).build();
 	}
 	@PutMapping(path = "/firestation")
@@ -58,6 +59,7 @@ public class MicroServiceFirestation {
 		}
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{station}")
 				.buildAndExpand(firestationModified.getStation()).toUri();
+		logger.info("{} was updated", firestation);
 		return ResponseEntity.created(location).build();
 	}
 
@@ -69,10 +71,9 @@ public class MicroServiceFirestation {
 			logger.info("Firestation with id {} not found", firestation);
 			return ResponseEntity.unprocessableEntity().body("Address and Id were unknown");
 		}
-
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{station}")
 				.buildAndExpand(firestationDeleted.getStation()).toUri();
-
+		logger.info("{} was deleted", firestation);
 		return ResponseEntity.created(location).build();
 	}
 }

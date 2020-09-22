@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Medicalrecord {
@@ -18,6 +19,7 @@ public class Medicalrecord {
 	@NotNull(message = "Lastname cannot be null")
 	private String lastName;
 	@NotNull(message = "birthdate cannot be null")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthdate;
 	private List<String> medications = new ArrayList<>();
 	private List<String> allergies = new ArrayList<>();
