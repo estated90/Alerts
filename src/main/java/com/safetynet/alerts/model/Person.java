@@ -42,15 +42,15 @@ public class Person {
 
 	/**
 	 * 
-	 * @param zip
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param city
-	 * @param phone
-	 * @param email
-	 * @param firestation
-	 * @param medicalrecords
+	 * @param zip of the person
+	 * @param firstName of the person
+	 * @param lastName of the person
+	 * @param address of the person
+	 * @param city of the person
+	 * @param phone of the person
+	 * @param email of the person
+	 * @param firestation of the person
+	 * @param medicalrecords of the person
 	 */
 	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
 			String email, Firestation firestation, Medicalrecords medicalrecords) {

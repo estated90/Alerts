@@ -19,17 +19,12 @@ public class CoverageDto {
     public CoverageDto() {
     }
 	
-	/**
-	 * @param station
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param city
-	 * @param zip
-	 * @param phone
-	 * @param numberOfAdult
-	 * @param numberOfChildren
-	 */
+    /**
+     * 
+     * @param personDto list
+     * @param numberOfAdult int
+     * @param numberOfChildren int
+     */
 	public CoverageDto(List<PersonDto> personDto, int numberOfAdult, int numberOfChildren) {
 		super();
 		this.person = personDto;

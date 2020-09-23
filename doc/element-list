@@ -1,0 +1,9 @@
+com.safetynet.alerts
+com.safetynet.alerts.config
+com.safetynet.alerts.dao
+com.safetynet.alerts.dto
+com.safetynet.alerts.filter
+com.safetynet.alerts.interfaces
+com.safetynet.alerts.model
+com.safetynet.alerts.services
+com.safetynet.alerts.web.controller

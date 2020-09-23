@@ -20,10 +20,10 @@ public class PersonDto {
 
 	/**
 	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param phone
+	 * @param firstName of the person
+	 * @param lastName of the person
+	 * @param address of the person
+	 * @param phone of the person
 
 	 */
 	public PersonDto(String firstName, String lastName, String address, String phone) {

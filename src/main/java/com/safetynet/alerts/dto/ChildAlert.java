@@ -14,8 +14,8 @@ public class ChildAlert {
 	}
 
 	/**
-	 * @param child
-	 * @param familyMember
+	 * @param child people under 18
+	 * @param familyMember over 18
 	 */
 	public ChildAlert(List<ChildList> child, List<AdultList> familyMember) {
 		super();
@@ -24,7 +24,7 @@ public class ChildAlert {
 	}
 
 	/**
-	 * @return the child
+	 * @return the child under 18
 	 */
 	public List<ChildList> getChild() {
 		return child;

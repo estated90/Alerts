@@ -27,13 +27,20 @@ public class MicroServiceMedicalrecords {
 	
 	@Autowired
 	private MedicalRecordDaoImpl medicalrecords;
-	
+	/**
+	 * 
+	 * @return list of medicalrecords
+	 */
 	@GetMapping(value = "medicalrecord")
 	public List<Medicalrecords> allmedicalrecords() {
 		logger.info("getting all medicalrecord");
 		return medicalrecords.returnAllMedicalRecord();
 	}
-
+	/**
+	 * 
+	 * @param medicalrecord with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@PostMapping(value = "/medicalrecord")
 	public ResponseEntity<String> addMedicalrecord(@Valid @RequestBody Medicalrecords medicalrecord) {
 		logger.info("adding medicalrecord for: {}", medicalrecord);
@@ -47,7 +54,11 @@ public class MicroServiceMedicalrecords {
 		logger.info("{} was created", medicalrecord);
 		return ResponseEntity.created(location).build();
 	}
-
+	/**
+	 * 
+	 * @param medicalrecord with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@PutMapping(path = "/medicalrecord")
 	public ResponseEntity<String> updateMedicalrecord(@Valid @RequestBody Medicalrecords medicalrecord) {
 		logger.info("updating firestation: {}", medicalrecord);
@@ -61,7 +72,11 @@ public class MicroServiceMedicalrecords {
 		logger.info("{} was updated", medicalrecord);
 		return ResponseEntity.created(location).build();
 	}
-
+	/**
+	 * 
+	 * @param medicalrecord with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@DeleteMapping(path = "/medicalrecord")
 	public ResponseEntity<String> deleteMedicalrecord(@RequestBody Medicalrecords medicalrecord) {
 		logger.info("deleting medicalrecord : {}", medicalrecord);

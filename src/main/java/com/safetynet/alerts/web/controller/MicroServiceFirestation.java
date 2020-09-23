@@ -30,12 +30,20 @@ public class MicroServiceFirestation {
 	
 	@Autowired
 	private FirestationDaoImpl firestationDao;
-
+	/**
+	 * 
+	 * @return List Firestation
+	 */
 	@GetMapping(value = "firestation", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Firestation> firestation() {
 		logger.info("getting all firestation");
 		return firestationDao.returnAllFirestation();
 	}
+	/**
+	 * 
+	 * @param firestation with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@PostMapping(value = "/firestation", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Void> addFirestation(@Valid @RequestBody Firestation firestation) {
 		logger.info("creating new firestation: {}", firestation);
@@ -49,6 +57,11 @@ public class MicroServiceFirestation {
 		logger.info("{} was created", firestation);
 		return ResponseEntity.created(location).build();
 	}
+	/**
+	 * 
+	 * @param firestation with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@PutMapping(path = "/firestation")
 	public ResponseEntity<String> updateUser(@Valid @RequestBody Firestation firestation) {
 		logger.info("updating firestation: {}", firestation);
@@ -62,7 +75,11 @@ public class MicroServiceFirestation {
 		logger.info("{} was updated", firestation);
 		return ResponseEntity.created(location).build();
 	}
-
+	/**
+	 * 
+	 * @param firestation with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@DeleteMapping(path = "/firestation")
 	public ResponseEntity<String> deleteUser(@RequestBody Firestation firestation) {
 		Firestation firestationDeleted = firestationDao.deleteFirestation(firestation);

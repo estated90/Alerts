@@ -10,15 +10,13 @@ public class ChildList {
 	private String firstName;
 	private String lastName;
 	private int age;
-	/**
-	 * 
-	 */
+
 	public ChildList() {
 	}
 	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param age
+	 * @param firstName of the child
+ 	 * @param lastName of the child
+	 * @param age of the child
 	 */
 	public ChildList(String firstName, String lastName, int age) {
 		super();

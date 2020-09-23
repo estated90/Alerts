@@ -13,8 +13,8 @@ public class Flood {
 	public Flood() {
 	}
 	/**
-	 * @param address
-	 * @param inhabitant
+	 * @param address of the coverage
+	 * @param inhabitant of the addresses
 	 */
 	public Flood(String address, List<FireAddressInhabitant> inhabitant) {
 		super();

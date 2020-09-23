@@ -10,22 +10,40 @@ import org.springframework.stereotype.Component;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
 
+/**
+ * @author nicol
+ *
+ */
 @Component
 public class FirestationDaoImpl {
 
 	@Autowired
 	private ListObjects listObject;
 
+	/**
+	 * 
+	 * @return Firestation
+	 */
 	public List<Firestation> returnAllFirestation() {
 		return listObject.getFirestations();
 	}
 
+	/**
+	 * 
+	 * @param firestation object from API
+	 * @return firestation filtered
+	 */
 	public Firestation saveFirestation(@Valid Firestation firestation) {
 		listObject.getFirestations().add(firestation);
 		return listObject.getFirestations().stream().filter(str -> str.getAddress().equals(firestation.getAddress()))
 				.findAny().orElse(null);
 	}
 
+	/**
+	 * 
+	 * @param firestation object from API
+	 * @return firestation if exist or null
+	 */
 	public Firestation updateFirestation(@Valid Firestation firestation) {
 		String stationAddress = firestation.getAddress();
 		List<Firestation> firestations = listObject.getFirestations();
@@ -39,6 +57,11 @@ public class FirestationDaoImpl {
 		}
 	}
 
+	/**
+	 * 
+	 * @param firestation object from API
+	 * @return firestation if exist or null
+	 */
 	public Firestation deleteFirestation(Firestation firestation) {
 		List<Firestation> firestations = listObject.getFirestations();
 		Firestation firestationFiltered = null;

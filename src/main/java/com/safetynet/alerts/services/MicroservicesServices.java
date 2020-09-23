@@ -96,14 +96,18 @@ public class MicroservicesServices implements IMicroservicesServices {
 		PhoneAlert phoneAlert = new PhoneAlert();
 		List<Firestation> firestations = listObjects.getFirestations().stream()
 				.filter(str -> str.getStation() == station).collect(Collectors.toList());
-		for (Firestation firestation : firestations) {
-			List<Person> persons = firestation.getPerson();
-			for (Person person : persons) {
-				phoneAlert.getPhoneNumber().add(person.getPhone());
-			}
+		if (firestations.size() == 0) {
+			return null;
+		} else {
+			for (Firestation firestation : firestations) {
+				List<Person> persons = firestation.getPerson();
+				for (Person person : persons) {
+					phoneAlert.getPhoneNumber().add(person.getPhone());
+				}
 
+			}
+			return phoneAlert;
 		}
-		return phoneAlert;
 	}
 
 	@Override
@@ -111,17 +115,21 @@ public class MicroservicesServices implements IMicroservicesServices {
 		FireAddress fireAddress = new FireAddress();
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getAddress().equals(address))
 				.collect(Collectors.toList());
-		for (Person person : persons) {
-			JMapper<FireAddressInhabitant, Person> userMapperPerson = new JMapper<>(FireAddressInhabitant.class,
-					Person.class);
-			FireAddressInhabitant resultAdult = userMapperPerson.getDestination(person);
-			resultAdult.setMedications(person.getMedicalrecord().getMedications());
-			LocalDate bitrthdate = person.getMedicalrecord().getBirthdate();
-			resultAdult.setAge(calculateAge.ageCalculation(bitrthdate));
-			fireAddress.setStation(person.getFirestation().getStation());
-			fireAddress.getInhabitant().add(resultAdult);
+		if (persons.size() == 0) {
+			return null;
+		} else {
+			for (Person person : persons) {
+				JMapper<FireAddressInhabitant, Person> userMapperPerson = new JMapper<>(FireAddressInhabitant.class,
+						Person.class);
+				FireAddressInhabitant resultAdult = userMapperPerson.getDestination(person);
+				resultAdult.setMedications(person.getMedicalrecord().getMedications());
+				LocalDate bitrthdate = person.getMedicalrecord().getBirthdate();
+				resultAdult.setAge(calculateAge.ageCalculation(bitrthdate));
+				fireAddress.setStation(person.getFirestation().getStation());
+				fireAddress.getInhabitant().add(resultAdult);
+			}
+			return fireAddress;
 		}
-		return fireAddress;
 	}
 
 	@Override
@@ -147,7 +155,11 @@ public class MicroservicesServices implements IMicroservicesServices {
 				floodList.add(flood);
 			}
 		}
-		return floodList;
+		if (floodList.size() == 0) {
+			return null;
+		} else {
+			return floodList;
+		}
 	}
 
 	@Override
@@ -155,15 +167,19 @@ public class MicroservicesServices implements IMicroservicesServices {
 		List<PersonInfo> multipleFirstName = new ArrayList<>();
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getFirstName().equals(firstName))
 				.collect(Collectors.toList());
-		for (Person person : persons) {
-			JMapper<PersonInfo, Person> userMapperPerson = new JMapper<>(PersonInfo.class, Person.class);
-			PersonInfo resultPerson = userMapperPerson.getDestination(person);
-			resultPerson.setMedication(person.getMedicalrecord().getMedications());
-			resultPerson.setAge(calculateAge.ageCalculation(person.getMedicalrecord().getBirthdate()));
-			multipleFirstName.add(resultPerson);
-		}
+		if (persons.size() == 0) {
+			return null;
+		} else {
+			for (Person person : persons) {
+				JMapper<PersonInfo, Person> userMapperPerson = new JMapper<>(PersonInfo.class, Person.class);
+				PersonInfo resultPerson = userMapperPerson.getDestination(person);
+				resultPerson.setMedication(person.getMedicalrecord().getMedications());
+				resultPerson.setAge(calculateAge.ageCalculation(person.getMedicalrecord().getBirthdate()));
+				multipleFirstName.add(resultPerson);
+			}
 
-		return multipleFirstName;
+			return multipleFirstName;
+		}
 	}
 
 	@Override
@@ -171,14 +187,18 @@ public class MicroservicesServices implements IMicroservicesServices {
 		List<PersonInfo> multipleLastName = new ArrayList<>();
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getLastName().equals(lastName))
 				.collect(Collectors.toList());
-		for (Person person : persons) {
-			JMapper<PersonInfo, Person> userMapperPerson = new JMapper<>(PersonInfo.class, Person.class);
-			PersonInfo resultPerson = userMapperPerson.getDestination(person);
-			resultPerson.setMedication(person.getMedicalrecord().getMedications());
-			resultPerson.setAge(calculateAge.ageCalculation(person.getMedicalrecord().getBirthdate()));
-			multipleLastName.add(resultPerson);
+		if (persons.size() == 0) {
+			return null;
+		} else {
+			for (Person person : persons) {
+				JMapper<PersonInfo, Person> userMapperPerson = new JMapper<>(PersonInfo.class, Person.class);
+				PersonInfo resultPerson = userMapperPerson.getDestination(person);
+				resultPerson.setMedication(person.getMedicalrecord().getMedications());
+				resultPerson.setAge(calculateAge.ageCalculation(person.getMedicalrecord().getBirthdate()));
+				multipleLastName.add(resultPerson);
+			}
+			return multipleLastName;
 		}
-		return multipleLastName;
 	}
 
 	@Override
@@ -188,14 +208,18 @@ public class MicroservicesServices implements IMicroservicesServices {
 		List<Person> persons = listObjects.getPersons().stream()
 				.filter(str -> str.getFirstName().equals(firstName) && str.getLastName().equals(lastName))
 				.collect(Collectors.toList());
-		for (Person person : persons) {
-			JMapper<PersonInfo, Person> userMapperPerson = new JMapper<>(PersonInfo.class, Person.class);
-			resultPerson = userMapperPerson.getDestination(person);
-			resultPerson.setMedication(person.getMedicalrecord().getMedications());
-			resultPerson.setAge(calculateAge.ageCalculation(person.getMedicalrecord().getBirthdate()));
-			allInfo.add(resultPerson);
+		if (persons.size() == 0) {
+			return null;
+		} else {
+			for (Person person : persons) {
+				JMapper<PersonInfo, Person> userMapperPerson = new JMapper<>(PersonInfo.class, Person.class);
+				resultPerson = userMapperPerson.getDestination(person);
+				resultPerson.setMedication(person.getMedicalrecord().getMedications());
+				resultPerson.setAge(calculateAge.ageCalculation(person.getMedicalrecord().getBirthdate()));
+				allInfo.add(resultPerson);
+			}
+			return allInfo;
 		}
-		return allInfo;
 	}
 
 	@Override
@@ -203,10 +227,13 @@ public class MicroservicesServices implements IMicroservicesServices {
 		CommunityEmail communityEmail = new CommunityEmail();
 		List<Person> persons = listObjects.getPersons().stream().filter(str -> str.getCity().equals(city))
 				.collect(Collectors.toList());
-		for (Person person : persons) {
-			communityEmail.getEmail().add(person.getEmail());
+		if (persons.size() == 0) {
+			return null;
+		} else {
+			for (Person person : persons) {
+				communityEmail.getEmail().add(person.getEmail());
+			}
+			return communityEmail;
 		}
-		return communityEmail;
-
 	}
 }

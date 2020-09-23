@@ -4,9 +4,12 @@ package com.safetynet.alerts.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author nicol
+ *
+ */
 @Service
 public class ListObjects {
 
@@ -23,9 +26,9 @@ public class ListObjects {
 
 	/**
 	 * 
-	 * @param persons
-	 * @param firestations
-	 * @param medicalrecords
+	 * @param persons list of persons
+	 * @param firestations list of 
+	 * @param medicalrecords list of 
 	 */
 	public ListObjects(List<Person> persons, List<Firestation> firestations, List<Medicalrecords> medicalrecords) {
 		super();
@@ -34,34 +37,25 @@ public class ListObjects {
 		this.medicalrecords = medicalrecords;
 	}
 
+	/**
+	 * 
+	 * @return Person
+	 */
 	public List<Person> getPersons() {
 		return persons;
 	}
-
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
-	}
-
+	/**
+	 * 
+	 * @return Firestation
+	 */
 	public List<Firestation> getFirestations() {
 		return firestations;
 	}
-
-	public void setFirestations(List<Firestation> firestations) {
-		this.firestations = firestations;
-	}
-
+	/**
+	 * 
+	 * @return Medicalrecords
+	 */
 	public List<Medicalrecords> getMedicalrecords() {
 		return medicalrecords;
 	}
-
-	public void setMedicalrecords(List<Medicalrecords> medicalrecords) {
-		this.medicalrecords = medicalrecords;
-	}
-
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("persons", persons).append("firestations", firestations)
-				.append("medicalrecords", medicalrecords).toString();
-	}
-
 }

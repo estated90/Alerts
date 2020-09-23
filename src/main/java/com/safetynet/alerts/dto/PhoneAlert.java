@@ -15,7 +15,7 @@ public class PhoneAlert {
 	}
 
 	/**
-	 * @param phoneNumber
+	 * @param phoneNumber List
 	 */
 	public PhoneAlert(List<String> phoneNumber) {
 		super();

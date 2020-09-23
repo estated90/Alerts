@@ -34,8 +34,8 @@ public class Firestation {
 
     /**
      * 
-     * @param address
-     * @param station
+     * @param address of the firestation
+     * @param station number
      */
     public Firestation(String address, int station) {
         super();

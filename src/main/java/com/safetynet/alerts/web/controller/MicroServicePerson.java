@@ -30,13 +30,20 @@ public class MicroServicePerson {
 	private PersonsDaoImpl personsDao;
 	
 	private static final String PATH = "/{lastName}";
-
+	/**
+	 * 
+	 * @return return All Person
+	 */
 	@GetMapping(value = "person")
 	public List<Person> showPersons() {
 		logger.info("getting all persons");
 		return personsDao.returnAllPerson();
 	}
-
+	/**
+	 * 
+	 * @param person with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@PostMapping(value = "/person")
 	public ResponseEntity<String> addPerson(@Valid @RequestBody Person person) {
 		logger.info("adding person for: {}", person);
@@ -50,7 +57,11 @@ public class MicroServicePerson {
 		logger.info("{} was created", person);
 		return ResponseEntity.created(location).build();
 	}
-
+	/**
+	 * 
+	 * @param person with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@PutMapping(path = "/person")
 	public ResponseEntity<String> updateUser(@Valid @RequestBody Person person) {
 		logger.info("updating person for: {}", person);
@@ -64,7 +75,11 @@ public class MicroServicePerson {
 		logger.info("{} was updated", person);
 		return ResponseEntity.created(location).build();
 	}
-
+	/**
+	 * 
+	 * @param person with valid parameters
+	 * @return ResponseEntity error or success
+	 */
 	@DeleteMapping(path = "/person")
 	public ResponseEntity<String> deleteUser(@RequestBody Person person) {
 		logger.info("deleting person : {}", person);

@@ -17,10 +17,10 @@ public class CalculateAge {
 	private static final Logger logger = LogManager.getLogger("ageCalculation");
 
 	/**
-	 * @param birthdate
-	 * @return age
-	 * @throws NullPointerException
-	 * @throws IllegalArgumentException
+	 * @param birthdate to calculate from
+	 * @return age of the persons
+	 * @throws NullPointerException if not a date
+	 * @throws IllegalArgumentException if date after today's date
 	 */
 	public int ageCalculation(LocalDate birthdate) {
 		LocalDate birthdatePerson = birthdate;

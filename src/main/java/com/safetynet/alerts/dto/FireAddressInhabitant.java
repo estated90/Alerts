@@ -19,11 +19,11 @@ public class FireAddressInhabitant {
 	public FireAddressInhabitant() {
 	}
 	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param phone
-	 * @param age
-	 * @param medications
+	 * @param firstName person
+	 * @param lastName person
+	 * @param phone person
+	 * @param age person
+	 * @param medications person
 	 */
 	public FireAddressInhabitant(String firstName, String lastName, String phone, int age, List<String> medications) {
 		super();
@@ -58,13 +58,13 @@ public class FireAddressInhabitant {
 		this.lastName = lastName;
 	}
 	/**
-	 * @return the phoneNumber
+	 * @return phone the phoneNumber
 	 */
 	public String getPhone() {
 		return phone;
 	}
 	/**
-	 * @param phoneNumber the phoneNumber to set
+	 * @param phone the phoneNumber to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;

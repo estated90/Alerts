@@ -22,12 +22,12 @@ public class PersonInfo {
 	public PersonInfo() {
 	}
 	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param age
-	 * @param email
-	 * @param medication
+	 * @param firstName of the person
+	 * @param lastName of the person
+	 * @param address of the person
+	 * @param age of the person
+	 * @param email of the person
+	 * @param medication of the person
 	 */
 	public PersonInfo(String firstName, String lastName, String address, int age, String email,
 			List<String> medication) {

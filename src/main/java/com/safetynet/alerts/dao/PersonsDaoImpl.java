@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.alerts.model.ListObjects;
-import com.safetynet.alerts.model.Medicalrecords;
 import com.safetynet.alerts.model.Person;
 
 @Service

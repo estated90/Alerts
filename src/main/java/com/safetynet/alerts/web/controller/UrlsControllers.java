@@ -6,10 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.HeadersBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +31,11 @@ public class UrlsControllers {
 	@Autowired
 	private IMicroservicesServices microservicesServices;
 
+	/**
+	 * 
+	 * @param station number
+	 * @return ResponseEntity error or success
+	 */
 	@GetMapping(value = "firestation", params = "stationNumber", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<CoverageDto> coverageFirestation(@RequestParam("stationNumber") int station) {
@@ -45,46 +48,99 @@ public class UrlsControllers {
 		logger.info("Coverage of station {} is {}", station, coverage);
 		return ResponseEntity.ok().body(coverage);
 	}
-
+	/**
+	 * 
+	 * @param address as string
+	 * @return ResponseEntity error or success
+	 */
 	@GetMapping(value = "childAlert", params = "address")
-	public ChildAlert returnChildAlert(@RequestParam("address") String address){
-		return microservicesServices.childrenAlerts(address);
+	public ResponseEntity<ChildAlert> returnChildAlert(@RequestParam("address") String address){
+		logger.info("get childAlert for address {}", address);
+		ChildAlert childAlert = microservicesServices.childrenAlerts(address);
+		logger.info("ChildAlert for address {} is : ", address, childAlert);
+		return ResponseEntity.ok().body(childAlert);
 	}
-
+	/**
+	 * 
+	 * @param firestation number
+	 * @return ResponseEntity error or success
+	 */
 	@GetMapping(value = "phoneAlert", params = "firestation")
-	public PhoneAlert phoneAlert(@RequestParam("firestation") int firestation) {
-		return microservicesServices.phoneAlert(firestation);
+	public ResponseEntity<Object> phoneAlert(@RequestParam("firestation") int firestation) {
+		logger.info("get PhoneAlert for firestation {}", firestation);
+		PhoneAlert phoneAlert = microservicesServices.phoneAlert(firestation);
+		if (phoneAlert == null) {
+			logger.info("The firestation was not found");
+			return ResponseEntity.noContent().build();
+		}
+		logger.info("PhoneAlert of station {} is {}", firestation, phoneAlert);
+		return ResponseEntity.ok().body(phoneAlert);
 	}
-
+	/**
+	 * 
+	 * @param address as string
+	 * @return ResponseEntity error or success
+	 */
 	@GetMapping(value = "fire", params = "address")
-	public FireAddress fire(@RequestParam("address") String address){
-		return microservicesServices.fireAdress(address);
+	public ResponseEntity<Object> fire(@RequestParam("address") String address){
+		logger.info("get FireAddress for address {}", address);
+		FireAddress fireAddress = microservicesServices.fireAdress(address);
+		if (fireAddress == null) {
+			logger.info("The address was not found");
+			return ResponseEntity.noContent().build();
+		}
+		logger.info("PhoneAlert of address {} is {}", address, fireAddress);
+		return ResponseEntity.ok().body(fireAddress);
 	}
-
+	/**
+	 * 
+	 * @param stations as int or list of int
+	 * @return ResponseEntity error or success
+	 */
 	@GetMapping(value = "flood/stations", params = "stations")
-	public List<Flood> flood(@RequestParam("stations") List<Integer> stations) {
-		return microservicesServices.floodStation(stations);
+	public ResponseEntity<Object> flood(@RequestParam("stations") List<Integer> stations) {
+		logger.info("get flood for stations {}", stations);
+		List<Flood> flood = microservicesServices.floodStation(stations);
+		if (flood == null) {
+			logger.info("The station was not found");
+			return ResponseEntity.noContent().build();
+		}
+		logger.info("Flood of stations {} is {}", stations, flood);
+		return ResponseEntity.ok().body(flood);
 	}
-
-	@GetMapping(value = "personInfo", params = "firstName")
-	public List<PersonInfo> personInfoFirstName(@RequestParam("firstName") String firstName){
-		return microservicesServices.personInfoFirstName(firstName);
-	}
-
-	@GetMapping(value = "personInfo", params = "lastName")
-	public List<PersonInfo> personInfoLastName(@RequestParam("lastName") String lastName) {
-		return microservicesServices.personInfoLastName(lastName);
-	}
-
+	/**
+	 * 
+	 * @param firstName to look for
+	 * @param lastName to look for
+	 * @return ResponseEntity error or success
+	 */
 	@GetMapping(value = "personInfo", params = { "firstName", "lastName" })
-	public List<PersonInfo> personInfoAll(@RequestParam("firstName") String firstName,
+	public ResponseEntity<Object> personInfoAll(@RequestParam("firstName") String firstName,
 			@RequestParam("lastName") String lastName){
-		return microservicesServices.personInfo(firstName, lastName);
+		logger.info("get PersonInfo for first name {} and last name {}", firstName, lastName);
+		List<PersonInfo> personInfo = microservicesServices.personInfo(firstName, lastName);
+		if (personInfo == null) {
+			logger.info("The person was not found");
+			return ResponseEntity.noContent().build();
+		}
+		logger.info("PersonInfo of firstName {} and last name {} is {}", firstName, lastName, personInfo);
+		return ResponseEntity.ok().body(personInfo);
 	}
-
+	/**
+	 * 
+	 * @param city to look for
+	 * @return ResponseEntity error or success
+	 */
 	@GetMapping(value = "communityEmail", params = "city")
-	public CommunityEmail communityEmail(@RequestParam("city") String city) {
-		return microservicesServices.communityEmail(city);
+	public ResponseEntity<Object> communityEmail(@RequestParam("city") String city) {
+		logger.info("get communityEmail for city {}", city);
+		CommunityEmail communityEmail = microservicesServices.communityEmail(city);
+		if (communityEmail == null) {
+			logger.info("The station was not found");
+			return ResponseEntity.noContent().build();
+		}
+		logger.info("communityEmail of city {} is {}", city, communityEmail);
+		return ResponseEntity.ok().body(communityEmail);
 	}
 	
 	@Bean

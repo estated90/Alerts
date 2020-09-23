@@ -15,7 +15,7 @@ public class CommunityEmail {
 	}
 
 	/**
-	 * @param email
+	 * @param email from persons
 	 */
 	public CommunityEmail(List<String> email) {
 		super();

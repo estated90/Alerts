@@ -35,11 +35,11 @@ public class Medicalrecords {
 
 	/**
 	 * 
-	 * @param allergies
-	 * @param firstName
-	 * @param lastName
-	 * @param birthdate
-	 * @param medications
+	 * @param allergies of the person
+	 * @param firstName of the person
+	 * @param lastName of the person
+	 * @param birthdate of the person
+	 * @param medications of the person
 	 */
 	public Medicalrecords(String firstName, String lastName, LocalDate birthdate, List<String> medications,
 			List<String> allergies) {

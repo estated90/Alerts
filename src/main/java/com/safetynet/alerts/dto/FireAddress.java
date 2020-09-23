@@ -13,8 +13,8 @@ public class FireAddress {
 	public FireAddress() {
 	}
 	/**
-	 * @param station
-	 * @param inhabitant
+	 * @param station in charge
+	 * @param inhabitant list of the house
 	 */
 	public FireAddress(int station, List<FireAddressInhabitant> inhabitant) {
 		super();
