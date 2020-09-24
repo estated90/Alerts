@@ -7,12 +7,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.alerts.interfaces.ICalculateAge;
+
 /**
  * @author nicol
  *
  */
 @Service
-public class CalculateAge {
+public class CalculateAge implements ICalculateAge {
 
 	private static final Logger logger = LogManager.getLogger("ageCalculation");
 
@@ -22,6 +24,7 @@ public class CalculateAge {
 	 * @throws NullPointerException if not a date
 	 * @throws IllegalArgumentException if date after today's date
 	 */
+	@Override
 	public int ageCalculation(LocalDate birthdate) {
 		LocalDate birthdatePerson = birthdate;
 		int age = Period.between(birthdatePerson, LocalDate.now()).getYears();

@@ -20,6 +20,7 @@ import com.safetynet.alerts.dto.Flood;
 import com.safetynet.alerts.dto.PersonDto;
 import com.safetynet.alerts.dto.PersonInfo;
 import com.safetynet.alerts.dto.PhoneAlert;
+import com.safetynet.alerts.interfaces.ICalculateAge;
 import com.safetynet.alerts.interfaces.IMicroservicesServices;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
@@ -31,7 +32,7 @@ public class MicroservicesServices implements IMicroservicesServices {
 	@Autowired
 	private ListObjects listObjects;
 	@Autowired
-	private CalculateAge calculateAge;
+	private ICalculateAge calculateAge;
 
 	@Override
 	public CoverageDto firestationListPerson(int station) {

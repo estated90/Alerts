@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
+import com.safetynet.alerts.interfaces.ICalculateAge;
+
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CalculateAgeTest {
 
 	@InjectMocks
-	private static CalculateAge calculateAge;
+	private static ICalculateAge calculateAge;
 
 	@BeforeAll
 	private static void init() {

@@ -34,13 +34,27 @@ public class JsonReaderImpl implements IJsonReader{
 	@Autowired(required=true)
 	private ListObjects listObjects;
 	public final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+	private File jsonFile = new File("data.json");
 
+	/**
+	 * @return the jsonFile
+	 */
+	public File getJsonFile() {
+		return jsonFile;
+	}
+
+	/**
+	 * @param jsonFile the jsonFile to set
+	 */
+	public void setJsonFile(File jsonFile) {
+		this.jsonFile = jsonFile;
+	}
+	
 	@Override
 	@PostConstruct
 	public void readerList() {
 		JsonNode mainJson = null;
 		ObjectMapper mapper = new ObjectMapper();
-		File jsonFile = new File("data.json");
 		try {
 			mainJson = mapper.readTree(jsonFile);
 			readPersonsJson(mainJson);
@@ -55,6 +69,8 @@ public class JsonReaderImpl implements IJsonReader{
 
 		logger.info("Database has been configure");
 	}
+
+
 
 	private void readPersonsJson(JsonNode mainJson) {
 		JsonNode persons = mainJson.at("/persons");
