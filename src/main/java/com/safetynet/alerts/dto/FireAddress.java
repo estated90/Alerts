@@ -45,5 +45,4 @@ public class FireAddress {
 	public void setInhabitant(List<FireAddressInhabitant> inhabitant) {
 		this.inhabitant = inhabitant;
 	}
-	
 }

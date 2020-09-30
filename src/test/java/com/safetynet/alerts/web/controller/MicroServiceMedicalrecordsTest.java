@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -31,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -72,7 +74,7 @@ class MicroServiceMedicalrecordsTest {
 	@Test
 	@Order(1)
 	@Tag("SuccessfulRequest")
-	void givenListFirestation_whenGet_thenReturnList() throws Exception {
+	void givenList_Medicalrecord_whenGet_thenReturnList() throws Exception {
 		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(23))).andExpect(jsonPath("$[0].firstName", is("John")))
@@ -83,7 +85,7 @@ class MicroServiceMedicalrecordsTest {
 	@Order(2)
 	@Test
 	@Tag("SuccessfulRequest")
-	void test_post_put_delete_firestation_success() throws Exception {
+	void test_post_put_delete_medicalrecord_success() throws Exception {
 		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test", birthdate, medicationsList, allergiesList);
 		String medicalrecordString = asString(medicalrecord);
 		mockMvc.perform(post("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
@@ -95,17 +97,15 @@ class MicroServiceMedicalrecordsTest {
 				.andExpect(jsonPath("$[23].lastName", is("Test")));
 		medicalrecord = new Medicalrecords("Julien", "Test", LocalDate.now().minusYears(20), null, null);
 		medicalrecordString = asString(medicalrecord);
-		mockMvc.perform(
-				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
+		mockMvc.perform(put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
 				.andExpect(status().isCreated());
 		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$", hasSize(24)))
-				.andExpect(jsonPath("$[23].birthdate", is(LocalDate.now().minusYears(20).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
+				.andExpect(jsonPath("$", hasSize(24))).andExpect(jsonPath("$[23].birthdate",
+						is(LocalDate.now().minusYears(20).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
 		medicalrecord = new Medicalrecords("Julien", "Test", null, null, null);
 		medicalrecordString = asString(medicalrecord);
-		mockMvc.perform(
-				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
+		mockMvc.perform(delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
 				.andExpect(status().isCreated());
 		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -115,7 +115,7 @@ class MicroServiceMedicalrecordsTest {
 
 	@Order(3)
 	@Test
-	void test_create_firestation_failure() throws Exception {
+	void test_create_medicalrecord_failure() throws Exception {
 		Medicalrecords medicalrecord = null;
 		mockMvc.perform(
 				post("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
@@ -124,16 +124,19 @@ class MicroServiceMedicalrecordsTest {
 
 	@Order(4)
 	@Test
-	void test_update_firestation_failure() throws Exception {
-		Medicalrecords medicalrecord = null;
+	void test_update_medicalrecord_failure() throws Exception {
+		Medicalrecords medicalrecord = new Medicalrecords("Julien", null, null, null, null);
 		mockMvc.perform(
 				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isBadRequest())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.lastName", Is.is("Lastname cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.birthdate", Is.is("birthdate cannot be null")))
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
 	}
 
 	@Order(5)
 	@Test
-	void test_delete_firestation_failure() throws Exception {
+	void test_delete_medicalrecord_failure() throws Exception {
 		Medicalrecords medicalrecord = null;
 		mockMvc.perform(
 				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
@@ -142,20 +145,23 @@ class MicroServiceMedicalrecordsTest {
 
 	@Order(6)
 	@Test
-	void test_update_firestation_failure_NotFoundItem() throws Exception {
-		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test2", null, null, null);
+	void test_update_medicalrecord_failure_NotFoundItem() throws Exception {
+		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test", birthdate, medicationsList, allergiesList);
+		String medicalrecordString = asString(medicalrecord);
 		mockMvc.perform(
-				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("The medicalrecord was not found"));
+				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
+				.andExpect(status().isUnprocessableEntity())
+				.andExpect(content().string("The medicalrecord was not found"));
 	}
 
 	@Order(7)
 	@Test
-	void test_delete_firestation_failure_NotFoundItem() throws Exception {
+	void test_delete_medicalrecord_failure_NotFoundItem() throws Exception {
 		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test0", null, null, null);
 		mockMvc.perform(
 				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("The medicalrecord was not found"));
+				.andExpect(status().isUnprocessableEntity())
+				.andExpect(content().string("The medicalrecord was not found"));
 	}
 
 	public static String asJsonString(final Object obj) {
@@ -174,9 +180,5 @@ class MicroServiceMedicalrecordsTest {
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
-	}
-	public static String asString(final LocalDate date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-		return date.format(formatter);
 	}
 }

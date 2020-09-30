@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -19,6 +20,7 @@ public class Medicalrecords {
 	@NotNull(message = "Lastname cannot be null")
 	private String lastName;
 	@NotNull(message = "birthdate cannot be null")
+	@PastOrPresent(message = "Date has to be in the poast or today's date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthdate;
 	private List<String> medications = new ArrayList<>();

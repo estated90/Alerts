@@ -55,7 +55,7 @@ class MicroServicePersonTest {
 	@Test
 	@Order(1)
 	@Tag("SuccessfulRequest")
-	void givenListFirestation_whenGet_thenReturnList() throws Exception {
+	void givenListPerson_whenGet_thenReturnList() throws Exception {
 		mockMvc.perform(get("/person")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(23))).andExpect(jsonPath("$[0].firstName", is("John")))
@@ -66,7 +66,7 @@ class MicroServicePersonTest {
 	@Order(2)
 	@Test
 	@Tag("SuccessfulRequest")
-	void test_post_put_delete_firestation_success() throws Exception {
+	void test_post_put_delete_person_success() throws Exception {
 		Person person = new Person("Julien", "Test", "address", "Somewhere","69122","0684949494","julientest@somewhere.com",null,null);
 		String medicalrecordString = asString(person);
 		mockMvc.perform(post("/person").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
@@ -96,7 +96,7 @@ class MicroServicePersonTest {
 
 	@Order(3)
 	@Test
-	void test_create_firestation_failure() throws Exception {
+	void test_create_person_failure() throws Exception {
 		Person person = null;
 		mockMvc.perform(
 				post("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
@@ -105,7 +105,7 @@ class MicroServicePersonTest {
 
 	@Order(4)
 	@Test
-	void test_update_firestation_failure() throws Exception {
+	void test_update_person_failure() throws Exception {
 		Person person = null;
 		mockMvc.perform(
 				put("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
@@ -114,7 +114,7 @@ class MicroServicePersonTest {
 
 	@Order(5)
 	@Test
-	void test_delete_firestation_failure() throws Exception {
+	void test_delete_person_failure() throws Exception {
 		Person person = null;
 		mockMvc.perform(
 				delete("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
@@ -123,8 +123,8 @@ class MicroServicePersonTest {
 
 	@Order(6)
 	@Test
-	void test_update_firestation_failure_NotFoundItem() throws Exception {
-		Person person = new Person("Julien", "Test", null, null, null,null,null,null,null);
+	void test_update_person_failure_NotFoundItem() throws Exception {
+		Person person = new Person("Julien", "Test", "address", "city", "zip","841-874","email@email.com",null,null);
 		mockMvc.perform(
 				put("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
 				.andExpect(status().isUnprocessableEntity())
@@ -133,7 +133,7 @@ class MicroServicePersonTest {
 
 	@Order(7)
 	@Test
-	void test_delete_firestation_failure_NotFoundItem() throws Exception {
+	void test_delete_person_failure_NotFoundItem() throws Exception {
 		Person person = new Person("Julien", "Test", null, null, null,null,null,null,null);
 		mockMvc.perform(
 				delete("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))

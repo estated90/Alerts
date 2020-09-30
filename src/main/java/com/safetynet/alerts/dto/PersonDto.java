@@ -1,7 +1,5 @@
 package com.safetynet.alerts.dto;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import com.googlecode.jmapper.annotations.JGlobalMap;
 
 @JGlobalMap
@@ -88,12 +86,6 @@ public class PersonDto {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("firstName", firstName).append("lastName", lastName)
-				.append("address", address).append("phone", phone).toString();
-	}
-
 }
 
 

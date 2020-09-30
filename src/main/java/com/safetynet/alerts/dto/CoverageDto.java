@@ -66,6 +66,4 @@ public class CoverageDto {
 	public void setNumberOfChildren(int numberOfChildren) {
 		this.numberOfChildren = numberOfChildren;
 	}
-
-	
 }

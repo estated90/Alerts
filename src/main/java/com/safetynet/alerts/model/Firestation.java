@@ -21,7 +21,7 @@ public class Firestation {
 	@NotNull(message = "address cannot be null")
     private String address;
 	@NotNull(message = "station cannot be null")
-    private int station;
+    private Integer station;
     @JsonIgnore
     private List<Person> person = new ArrayList<>(); 
 

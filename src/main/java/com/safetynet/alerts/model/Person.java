@@ -20,11 +20,12 @@ public class Person {
 	private String city;
 	@NotNull(message = "zip cannot be null")
 	private String zip;
+	@NotNull(message = "phone cannot be null")
 	@Size(min = 6, max = 14, message 
     = "phone number must be between 6 and 14 characters")
 	private String phone;
 	@Email(message = "Email should be valid")
-    @NotNull
+    @NotNull(message = "email cannot be null")
 	private String email;
 	@JsonIgnore
 	private Firestation firestation;
