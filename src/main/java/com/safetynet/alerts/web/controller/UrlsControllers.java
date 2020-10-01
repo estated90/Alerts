@@ -38,7 +38,7 @@ public class UrlsControllers {
 	 */
 	@GetMapping(value = "firestation", params = "stationNumber", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<CoverageDto> coverageFirestation(@RequestParam("stationNumber") int station) {
+	public ResponseEntity<CoverageDto> coverageFirestation(@RequestParam(name="stationNumber") int station) {
 		logger.info("get coverage for firestation {}", station);
 		CoverageDto coverage = microservicesServices.firestationListPerson(station);
 		if (coverage == null) {
