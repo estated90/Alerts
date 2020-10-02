@@ -77,10 +77,8 @@ public class MicroServicePerson {
 			logger.info("Person was not updated");
 			return ResponseEntity.unprocessableEntity().body("The person was not updated");
 		}
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(PATH)
-				.buildAndExpand(personModified.getLastName()).toUri();
 		logger.info("{} was updated", person);
-		return ResponseEntity.created(location).build();
+		return ResponseEntity.noContent().build();
 	}
 	/**
 	 * 
@@ -95,10 +93,8 @@ public class MicroServicePerson {
 			logger.info("Person {} {} was not found", person.getLastName(), person.getFirstName());
 			return ResponseEntity.unprocessableEntity().body("The person was not found");
 		}
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(PATH)
-				.buildAndExpand(personDeleted.getLastName()).toUri();
 		logger.info("{} was deleted", person);
-		return ResponseEntity.created(location).build();
+		return ResponseEntity.ok(person +" deleted");
 	}
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

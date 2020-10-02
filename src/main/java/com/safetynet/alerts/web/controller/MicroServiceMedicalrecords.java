@@ -74,10 +74,8 @@ public class MicroServiceMedicalrecords {
 			logger.info("Medicalrecord for {} {} was not found", medicalrecord.getLastName(), medicalrecord.getFirstName());
 			return ResponseEntity.unprocessableEntity().body(("The medicalrecord was not found"));
 		}
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
-				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 		logger.info("{} was updated", medicalrecord);
-		return ResponseEntity.created(location).build();
+		return ResponseEntity.noContent().build();
 	}
 	/**
 	 * 
@@ -92,10 +90,8 @@ public class MicroServiceMedicalrecords {
 			logger.info("Medicalrecord for {} {} was not found", medicalrecord.getLastName(), medicalrecord.getFirstName());
 			return ResponseEntity.unprocessableEntity().body("The medicalrecord was not found");
 		}
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
-				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
 		logger.info("{} was deleted", medicalrecord);
-		return ResponseEntity.created(location).build();
+		return ResponseEntity.ok(medicalrecord +" deleted");
 	}
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

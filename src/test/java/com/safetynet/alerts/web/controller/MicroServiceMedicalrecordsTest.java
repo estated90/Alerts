@@ -98,7 +98,7 @@ class MicroServiceMedicalrecordsTest {
 		medicalrecord = new Medicalrecords("Julien", "Test", LocalDate.now().minusYears(20), null, null);
 		medicalrecordString = asString(medicalrecord);
 		mockMvc.perform(put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
-				.andExpect(status().isCreated());
+				.andExpect(status().isNoContent());
 		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(24))).andExpect(jsonPath("$[23].birthdate",
@@ -106,7 +106,7 @@ class MicroServiceMedicalrecordsTest {
 		medicalrecord = new Medicalrecords("Julien", "Test", null, null, null);
 		medicalrecordString = asString(medicalrecord);
 		mockMvc.perform(delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
-				.andExpect(status().isCreated());
+				.andExpect(status().isOk());
 		mockMvc.perform(get("/medicalrecord")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(23))).andExpect(jsonPath("$[22].firstName", is("Eric")))

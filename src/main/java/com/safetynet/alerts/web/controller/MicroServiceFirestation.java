@@ -77,10 +77,8 @@ public class MicroServiceFirestation {
 			logger.info("Firestation with id {} not found", firestation);
 			return ResponseEntity.unprocessableEntity().body("Address was unknown");
 		}
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{station}")
-				.buildAndExpand(firestationModified.getStation()).toUri();
 		logger.info("{} was updated", firestation);
-		return ResponseEntity.created(location).build();
+		return ResponseEntity.noContent().build();
 	}
 	/**
 	 * 
@@ -95,10 +93,8 @@ public class MicroServiceFirestation {
 			logger.info("Firestation with id {} not found", firestation);
 			return ResponseEntity.unprocessableEntity().body("Address and Id were unknown");
 		}
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{station}")
-				.buildAndExpand(firestationDeleted.getStation()).toUri();
 		logger.info("{} was deleted", firestation);
-		return ResponseEntity.created(location).build();
+		return ResponseEntity.ok(firestation +" deleted");
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

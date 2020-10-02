@@ -77,7 +77,7 @@ class MicroServiceFirestationTest {
 				.andExpect(jsonPath("$[13].address", is("address test")));
 		firestation = new Firestation("address test", 6);
 		mockMvc.perform(put("/firestation").contentType(MediaType.APPLICATION_JSON).content(asJsonString(firestation)))
-				.andExpect(status().isCreated());
+				.andExpect(status().isNoContent());
 		mockMvc.perform(get("/firestation")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(14))).andExpect(jsonPath("$[13].station", is(6)))
@@ -85,7 +85,7 @@ class MicroServiceFirestationTest {
 		firestation = new Firestation(null, 6);
 		mockMvc.perform(
 				delete("/firestation").contentType(MediaType.APPLICATION_JSON).content(asJsonString(firestation)))
-				.andExpect(status().isCreated());
+				.andExpect(status().isOk());
 		mockMvc.perform(get("/firestation")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(13))).andExpect(jsonPath("$[12].station", is(2)))
@@ -97,7 +97,7 @@ class MicroServiceFirestationTest {
 		firestation = new Firestation("address test", 0);
 		mockMvc.perform(
 				delete("/firestation").contentType(MediaType.APPLICATION_JSON).content(asJsonString(firestation)))
-				.andExpect(status().isCreated());
+				.andExpect(status().isOk());
 		mockMvc.perform(get("/firestation")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(13))).andExpect(jsonPath("$[12].station", is(2)))

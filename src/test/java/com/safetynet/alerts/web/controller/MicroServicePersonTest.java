@@ -79,7 +79,7 @@ class MicroServicePersonTest {
 		person = new Person("Julien", "Test", "other address", "Somewhere","69122","0684949494","julientest@somewhere.com",null,null);
 		medicalrecordString = asString(person);
 		mockMvc.perform(put("/person").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
-				.andExpect(status().isCreated());
+				.andExpect(status().isNoContent());
 		mockMvc.perform(get("/person")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(24))).andExpect(jsonPath("$[23].address",
@@ -87,7 +87,7 @@ class MicroServicePersonTest {
 		person = new Person("Julien", "Test", null, null, null,null,null,null,null);
 		medicalrecordString = asString(person);
 		mockMvc.perform(delete("/person").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
-				.andExpect(status().isCreated());
+				.andExpect(status().isOk());
 		mockMvc.perform(get("/person")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$", hasSize(23))).andExpect(jsonPath("$[22].firstName", is("Eric")))
