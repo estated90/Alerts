@@ -427,7 +427,7 @@ API will return a 400 Bad Request code if you didn’t provide all the element
 
 ## GET
 
-To retrieve a list of persons covered by a fire station: 
+firestation/stationNumber
 
 ### Syntax
 
@@ -457,6 +457,228 @@ The number of the station number
 ### Notes
 
 The URL will return a list of persons that are covered by the station ID provided. The list will return first name, last name, address and phone. Moreover, it will include the number of adult and child (under 18) from the covered area.
+
+## GET
+
+/childAlert
+
+### Syntax
+
+[http://localhost:8080/childAlert?address=<address>](http://localhost:8080/childAlert?address=1509 Culver St)
+
+#### Parameters
+
+The address of the children
+
+####  Example
+
+```json
+{
+    "child": [
+        {
+            "firstName": "Tenley",
+            "lastName": "Boyd",
+            "age": 7
+        },
+        {
+            "firstName": "Roger",
+            "lastName": "Boyd",
+            "age": 3
+        }
+    ],
+    "familyMember": [
+        {
+            "firstName": "John",
+            "lastName": "Boyd"
+        },
+        {
+            "firstName": "Jacob",
+            "lastName": "Boyd"
+        },
+        {
+            "firstName": "Felicia",
+            "lastName": "Boyd"
+        }
+    ]
+}
+```
+
+### Notes
+
+The API will return  a list of children with their age, first name and last name. It will include the names of the inhabitant of the address.
+
+## GET
+
+/phoneAlert
+
+### Syntax
+
+[http://localhost:8080/phoneAlert?firestation=<id>](http://localhost:8080/phoneAlert?firestation=3)
+
+#### Parameters
+
+the ID of the fire station
+
+####  Example
+
+```json
+{
+    "phoneNumber": [
+        "841-874-6512",
+        "841-874-6513",
+        "841-874-6512",
+        "841-874-6512",
+        "841-874-6544",
+        "841-874-6512",
+        "841-874-6544",
+        "841-874-6741",
+        "841-874-6874",
+        "841-874-8888",
+        "841-874-9888",
+        "841-874-6544",
+        "841-874-6741"
+    ]
+}
+```
+
+### Notes
+
+The API will return  a list of phone numbers that are covered by the station ID put as parameter.
+
+## GET
+
+/fire
+
+### Syntax
+
+[http://localhost:8080/fire?address=<address>](http://localhost:8080/fire?address=951 LoneTree Rd)
+
+#### Parameters
+
+The address of the fire station
+
+####  Example
+
+```json
+{
+    "station": 2,
+    "inhabitant": [
+        {
+            "firstName": "Eric",
+            "lastName": "Cadigan",
+            "phone": "841-874-7458",
+            "age": 75,
+            "medications": [
+                "tradoxidine:400mg"
+            ]
+        }
+    ]
+}
+```
+
+### Notes
+
+The API will return the fire station ID covering the habitation. It will also include the list of inhabitant with the names, phone, age and the medication they are under.
+
+## GET
+
+/flood/stations
+
+### Syntax
+
+[http://localhost:8080/flood/stations?stations=<list of fire station ID>](http://localhost:8080/flood/stations?stations=1,2)
+
+#### Parameters
+
+a list of ID as integers
+
+####  Example
+
+```json
+[
+    {
+        "address": "644 Gershwin Cir",
+        "inhabitant": [
+            {
+                "firstName": "Peter",
+                "lastName": "Duncan",
+                "phone": "841-874-6512",
+                "age": 20,
+                "medications": []
+            }
+        ]
+    }
+]
+```
+
+### Notes
+
+The API will return a list of addresses that are covered by the fire station with the list of inhabitant inside.
+
+## GET
+
+/personInfo
+
+### Syntax
+
+[http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>](http://localhost:8080/personInfo?firstName=John&lastName=Boyd)
+
+#### Parameters
+
+the first name and the last name of a person
+
+####  Example
+
+```json
+[
+    {
+        "firstName": "John",
+        "lastName": "Boyd",
+        "address": "1509 Culver St",
+        "age": 36,
+        "email": "jaboyd@email.com",
+        "medication": [
+            "aznol:350mg",
+            "hydrapermazol:100mg"
+        ]
+    }
+]
+```
+
+### Notes
+
+The API will return a list of person with homonyms. It will include the names, address, age, email and the medications of the person.
+
+## GET
+
+/communityEmail
+
+### Syntax
+
+[http://localhost:8080/communityEmail?city=<city>](http://localhost:8080/communityEmail?city=Culver)
+
+#### Parameters
+
+The name of the city
+
+####  Example
+
+```json
+{
+    "email": [
+        "jaboyd@email.com",
+        "drk@email.com",
+        "tenz@email.com",
+        "jaboyd@email.com",
+        "jaboyd@email.com",
+        "drk@email.com",
+    ]
+}
+```
+
+### Notes
+
+The API will return a list of all the emails of the person living in the city put as parameter
 
 # Testing
 
