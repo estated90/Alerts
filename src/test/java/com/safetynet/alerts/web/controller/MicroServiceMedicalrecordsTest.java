@@ -39,6 +39,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.safetynet.alerts.dao.MedicalRecordDaoImpl;
 import com.safetynet.alerts.model.Medicalrecords;
+import com.safetynet.alerts.model.Person;
 
 @WebMvcTest(MedicalRecordDaoImpl.class)
 @ExtendWith(MockitoExtension.class)
@@ -163,7 +164,28 @@ class MicroServiceMedicalrecordsTest {
 				.andExpect(status().isUnprocessableEntity())
 				.andExpect(content().string("The medicalrecord was not found"));
 	}
-
+	@Order(8)
+	@Test
+	void test_update_person_failure_missing_arguments() throws Exception {
+		Medicalrecords medicalrecord = new Medicalrecords(null, null, null, null, null);
+		mockMvc.perform(put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
+				.andExpect(status().isBadRequest())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.firstName", Is.is("Firstname cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.lastName", Is.is("Lastname cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.birthdate", Is.is("birthdate cannot be null")));
+	}
+	
+	@Order(9)
+	@Test
+	void test_add_person_failure_missing_arguments() throws Exception {
+		Medicalrecords medicalrecord = new Medicalrecords(null, null, null, null, null);
+		mockMvc.perform(post("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
+				.andExpect(status().isBadRequest())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.firstName", Is.is("Firstname cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.lastName", Is.is("Lastname cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.birthdate", Is.is("birthdate cannot be null")));
+	}
+	
 	public static String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);

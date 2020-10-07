@@ -11,9 +11,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,7 +47,6 @@ class MicroServicePersonTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-
 	@BeforeEach
 	public void init() {
 		MockitoAnnotations.initMocks(this);
@@ -139,6 +139,31 @@ class MicroServicePersonTest {
 				delete("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
 				.andExpect(status().isUnprocessableEntity())
 				.andExpect(content().string("The person was not found"));
+	}
+	@Order(8)
+	@Test
+	void test_update_person_failure_missing_arguments() throws Exception {
+		Person person = new Person("Julien", "Test", null, null, null,null,null,null,null);
+		mockMvc.perform(put("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
+				.andExpect(status().isBadRequest())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.zip", Is.is("zip cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.address", Is.is("address cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.city", Is.is("city cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.phone", Is.is("phone cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.email", Is.is("email cannot be null")));
+	}
+	
+	@Order(9)
+	@Test
+	void test_add_person_failure_missing_arguments() throws Exception {
+		Person person = new Person("Julien", "Test", null, null, null,null,null,null,null);
+		mockMvc.perform(post("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
+				.andExpect(status().isBadRequest())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.zip", Is.is("zip cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.address", Is.is("address cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.city", Is.is("city cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.phone", Is.is("phone cannot be null")))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.email", Is.is("email cannot be null")));
 	}
 
 	public static String asJsonString(final Object obj) {

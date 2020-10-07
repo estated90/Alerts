@@ -136,7 +136,7 @@ public class UrlsControllers {
 		logger.info("get communityEmail for city {}", city);
 		CommunityEmail communityEmail = microservicesServices.communityEmail(city);
 		if (communityEmail == null) {
-			logger.info("The station was not found");
+			logger.info("The city was not found");
 			return ResponseEntity.noContent().build();
 		}
 		logger.info("communityEmail of city {} is {}", city, communityEmail);

@@ -25,7 +25,12 @@ import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.ListObjects;
 import com.safetynet.alerts.model.Medicalrecords;
 import com.safetynet.alerts.model.Person;
-
+/**
+ * 
+ * @author nicol
+ * 
+ *
+ */
 @Configuration
 @ComponentScan(basePackages = "com.safetynet.alerts.model.ListObjects")
 public class JsonReaderImpl implements IJsonReader{
@@ -148,6 +153,6 @@ public class JsonReaderImpl implements IJsonReader{
 				}
 			}
 		}
-		logger.info("Deep link created between:");
+		logger.info("Deep link created");
 	}
 }
