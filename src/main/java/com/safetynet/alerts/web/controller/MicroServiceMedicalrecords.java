@@ -54,7 +54,7 @@ public class MicroServiceMedicalrecords {
 		Medicalrecords medicalrecordAdded = medicalrecords.saveMedicalRecord(medicalrecord);
 		if (medicalrecordAdded == null) {
 			logger.info("Medicalrecord was not created");
-			return ResponseEntity.unprocessableEntity().body("The medicalrecord was not added");
+			return ResponseEntity.badRequest().body("The medicalrecord was not added");
 		}
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{lastName}")
 				.buildAndExpand(medicalrecordAdded.getLastName()).toUri();
@@ -72,7 +72,7 @@ public class MicroServiceMedicalrecords {
 		Medicalrecords medicalrecordAdded = medicalrecords.updateMedicalRecord(medicalrecord);
 		if (medicalrecordAdded == null) {
 			logger.info("Medicalrecord for {} {} was not found", medicalrecord.getLastName(), medicalrecord.getFirstName());
-			return ResponseEntity.unprocessableEntity().body(("The medicalrecord was not found"));
+			return ResponseEntity.badRequest().body(("The medicalrecord was not found"));
 		}
 		logger.info("{} was updated", medicalrecord);
 		return ResponseEntity.noContent().build();
@@ -88,7 +88,7 @@ public class MicroServiceMedicalrecords {
 		Medicalrecords medicalrecordAdded = medicalrecords.deleteMedicalRecord(medicalrecord);
 		if (medicalrecordAdded == null) {
 			logger.info("Medicalrecord for {} {} was not found", medicalrecord.getLastName(), medicalrecord.getFirstName());
-			return ResponseEntity.unprocessableEntity().body("The medicalrecord was not found");
+			return ResponseEntity.badRequest().body("The medicalrecord was not found");
 		}
 		logger.info("{} was deleted", medicalrecord);
 		return ResponseEntity.ok(medicalrecord +" deleted");

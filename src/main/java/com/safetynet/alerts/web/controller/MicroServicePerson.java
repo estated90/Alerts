@@ -57,7 +57,7 @@ public class MicroServicePerson {
 		Person personAdded = personsDao.savePerson(person);
 		if (personAdded == null) {
 			logger.info("Person was not created");
-			return ResponseEntity.unprocessableEntity().body("The person was not added");
+			return ResponseEntity.badRequest().body("The person was not added");
 		}
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(PATH)
 				.buildAndExpand(personAdded.getLastName()).toUri();
@@ -75,7 +75,7 @@ public class MicroServicePerson {
 		Person personModified = personsDao.updatePerson(person);
 		if (personModified == null) {
 			logger.info("Person was not updated");
-			return ResponseEntity.unprocessableEntity().body("The person was not updated");
+			return ResponseEntity.badRequest().body("The person was not updated");
 		}
 		logger.info("{} was updated", person);
 		return ResponseEntity.noContent().build();
@@ -91,7 +91,7 @@ public class MicroServicePerson {
 		Person personDeleted = personsDao.deletePerson(person);
 		if (personDeleted == null) {
 			logger.info("Person {} {} was not found", person.getLastName(), person.getFirstName());
-			return ResponseEntity.unprocessableEntity().body("The person was not found");
+			return ResponseEntity.badRequest().body("The person was not found");
 		}
 		logger.info("{} was deleted", person);
 		return ResponseEntity.ok(person +" deleted");

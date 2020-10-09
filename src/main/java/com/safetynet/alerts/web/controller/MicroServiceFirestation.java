@@ -57,7 +57,7 @@ public class MicroServiceFirestation {
 		Firestation firestationAdded = firestationDao.saveFirestation(firestation);
 		if (firestationAdded == null) {
 			logger.info("Firestation was not created");
-			return ResponseEntity.noContent().build();
+			return ResponseEntity.badRequest().build();
 		}
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{station}")
 				.buildAndExpand(firestationAdded.getStation()).toUri();
@@ -75,7 +75,7 @@ public class MicroServiceFirestation {
 		Firestation firestationModified = firestationDao.updateFirestation(firestation);
 		if (firestationModified == null) {
 			logger.info("Firestation with id {} not found", firestation);
-			return ResponseEntity.unprocessableEntity().body("Address was unknown");
+			return ResponseEntity.badRequest().body("Address was unknown");
 		}
 		logger.info("{} was updated", firestation);
 		return ResponseEntity.noContent().build();
@@ -91,7 +91,7 @@ public class MicroServiceFirestation {
 		logger.info("deleting firestation : {}", firestation);
 		if (firestationDeleted == null) {
 			logger.info("Firestation with id {} not found", firestation);
-			return ResponseEntity.unprocessableEntity().body("Address and Id were unknown");
+			return ResponseEntity.badRequest().body("Address and Id were unknown");
 		}
 		logger.info("{} was deleted", firestation);
 		return ResponseEntity.ok(firestation +" deleted");
