@@ -35,7 +35,8 @@ public class MicroServiceMedicalrecords {
 	@Autowired
 	private MedicalRecordDaoImpl medicalrecords;
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @return list of medicalrecords
 	 */
 	@GetMapping(value = "medicalrecord")
@@ -44,7 +45,8 @@ public class MicroServiceMedicalrecords {
 		return medicalrecords.returnAllMedicalRecord();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param medicalrecord with valid parameters
 	 * @return ResponseEntity error or success
 	 */
@@ -62,7 +64,8 @@ public class MicroServiceMedicalrecords {
 		return ResponseEntity.created(location).build();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param medicalrecord with valid parameters
 	 * @return ResponseEntity error or success
 	 */
@@ -78,7 +81,8 @@ public class MicroServiceMedicalrecords {
 		return ResponseEntity.noContent().build();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param medicalrecord with valid parameters
 	 * @return ResponseEntity error or success
 	 */

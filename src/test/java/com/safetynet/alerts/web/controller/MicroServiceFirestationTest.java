@@ -132,14 +132,14 @@ class MicroServiceFirestationTest {
 	void test_update_firestation_failure_NotFoundItem() throws Exception {
 		Firestation firestation = new Firestation("Testing address", 7);
 		mockMvc.perform(put("/firestation").contentType(MediaType.APPLICATION_JSON).content(asJsonString(firestation)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("Address was unknown"));
+				.andExpect(status().isBadRequest()).andExpect(content().string("Address was unknown"));
 	}
 	@Order(7)
 	@Test
 	void test_delete_firestation_failure_NotFoundItem() throws Exception {
 		Firestation firestation = new Firestation("Testing address", 7);
 		mockMvc.perform(delete("/firestation").contentType(MediaType.APPLICATION_JSON).content(asJsonString(firestation)))
-				.andExpect(status().isUnprocessableEntity()).andExpect(content().string("Address and Id were unknown"));
+				.andExpect(status().isBadRequest()).andExpect(content().string("Address and Id were unknown"));
 	}
 	public static String asJsonString(final Object obj) {
 		try {

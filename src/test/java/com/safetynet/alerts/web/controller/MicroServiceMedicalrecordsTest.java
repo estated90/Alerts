@@ -151,7 +151,7 @@ class MicroServiceMedicalrecordsTest {
 		String medicalrecordString = asString(medicalrecord);
 		mockMvc.perform(
 				put("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(medicalrecordString))
-				.andExpect(status().isUnprocessableEntity())
+				.andExpect(status().isBadRequest())
 				.andExpect(content().string("The medicalrecord was not found"));
 	}
 
@@ -161,7 +161,7 @@ class MicroServiceMedicalrecordsTest {
 		Medicalrecords medicalrecord = new Medicalrecords("Julien", "Test0", null, null, null);
 		mockMvc.perform(
 				delete("/medicalrecord").contentType(MediaType.APPLICATION_JSON).content(asJsonString(medicalrecord)))
-				.andExpect(status().isUnprocessableEntity())
+				.andExpect(status().isBadRequest())
 				.andExpect(content().string("The medicalrecord was not found"));
 	}
 	@Order(8)

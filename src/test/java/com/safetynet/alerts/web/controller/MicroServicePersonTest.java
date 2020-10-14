@@ -127,7 +127,7 @@ class MicroServicePersonTest {
 		Person person = new Person("Julien", "Test", "address", "city", "zip","841-874","email@email.com",null,null);
 		mockMvc.perform(
 				put("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
-				.andExpect(status().isUnprocessableEntity())
+				.andExpect(status().isBadRequest())
 				.andExpect(content().string("The person was not updated"));
 	}
 
@@ -137,7 +137,7 @@ class MicroServicePersonTest {
 		Person person = new Person("Julien", "Test", null, null, null,null,null,null,null);
 		mockMvc.perform(
 				delete("/person").contentType(MediaType.APPLICATION_JSON).content(asJsonString(person)))
-				.andExpect(status().isUnprocessableEntity())
+				.andExpect(status().isBadRequest())
 				.andExpect(content().string("The person was not found"));
 	}
 	@Order(8)

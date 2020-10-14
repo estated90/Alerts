@@ -32,7 +32,8 @@ public class UrlsControllers {
 	private IMicroservicesServices microservicesServices;
 
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param station number
 	 * @return ResponseEntity error or success
 	 */
@@ -49,7 +50,8 @@ public class UrlsControllers {
 		return ResponseEntity.ok().body(coverage);
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param address as string
 	 * @return ResponseEntity error or success
 	 */
@@ -61,7 +63,8 @@ public class UrlsControllers {
 		return ResponseEntity.ok().body(childAlert);
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param firestation number
 	 * @return ResponseEntity error or success
 	 */
@@ -77,7 +80,8 @@ public class UrlsControllers {
 		return ResponseEntity.ok().body(phoneAlert);
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param address as string
 	 * @return ResponseEntity error or success
 	 */
@@ -93,7 +97,8 @@ public class UrlsControllers {
 		return ResponseEntity.ok().body(fireAddress);
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param stations as int or list of int
 	 * @return ResponseEntity error or success
 	 */
@@ -109,7 +114,8 @@ public class UrlsControllers {
 		return ResponseEntity.ok().body(flood);
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param firstName to look for
 	 * @param lastName to look for
 	 * @return ResponseEntity error or success
@@ -127,7 +133,8 @@ public class UrlsControllers {
 		return ResponseEntity.ok().body(personInfo);
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param city to look for
 	 * @return ResponseEntity error or success
 	 */

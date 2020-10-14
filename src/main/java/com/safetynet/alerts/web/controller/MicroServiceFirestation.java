@@ -39,6 +39,8 @@ public class MicroServiceFirestation {
 	private FirestationDaoImpl firestationDao;
 	/**
 	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @return List Firestation
 	 */
 	@GetMapping(value = "firestation", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -47,7 +49,8 @@ public class MicroServiceFirestation {
 		return firestationDao.returnAllFirestation();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param firestation with valid parameters
 	 * @return ResponseEntity error or success
 	 */
@@ -65,7 +68,8 @@ public class MicroServiceFirestation {
 		return ResponseEntity.created(location).build();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param firestation with valid parameters
 	 * @return ResponseEntity error or success
 	 */
@@ -81,7 +85,8 @@ public class MicroServiceFirestation {
 		return ResponseEntity.noContent().build();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param firestation with valid parameters
 	 * @return ResponseEntity error or success
 	 */

@@ -38,7 +38,8 @@ public class MicroServicePerson {
 	
 	private static final String PATH = "/{lastName}";
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @return return All Person
 	 */
 	@GetMapping(value = "person")
@@ -47,7 +48,8 @@ public class MicroServicePerson {
 		return personsDao.returnAllPerson();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param person with valid parameters
 	 * @return ResponseEntity error or success
 	 */
@@ -65,7 +67,8 @@ public class MicroServicePerson {
 		return ResponseEntity.created(location).build();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param person with valid parameters
 	 * @return ResponseEntity error or success
 	 */
@@ -81,7 +84,8 @@ public class MicroServicePerson {
 		return ResponseEntity.noContent().build();
 	}
 	/**
-	 * 
+	 * @version %I%
+	 * @since %G%
 	 * @param person with valid parameters
 	 * @return ResponseEntity error or success
 	 */
