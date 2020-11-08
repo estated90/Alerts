@@ -39,7 +39,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.safetynet.alerts.dao.MedicalRecordDaoImpl;
 import com.safetynet.alerts.model.Medicalrecords;
-import com.safetynet.alerts.model.Person;
 
 @WebMvcTest(MedicalRecordDaoImpl.class)
 @ExtendWith(MockitoExtension.class)
